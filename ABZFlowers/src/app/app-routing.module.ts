@@ -11,15 +11,15 @@ import { LoginComponent } from './login/login.component';
 import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
 
 const routes: Routes = [
-  {path:  "", pathMatch:  "full",redirectTo:  "home"},
-  {path: "home", component: HomeComponent},
-  {path: "about-us", component: AboutUsComponent},
-  {path: "contact-us", component: ContactUsComponent},
-  {path: "events", component: EventsComponent},  
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'home', component: HomeComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'contact-us', component: ContactUsComponent },
+  { path: 'events', component: EventsComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
