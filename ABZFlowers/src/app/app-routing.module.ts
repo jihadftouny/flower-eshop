@@ -17,6 +17,9 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'events', component: EventsComponent },
+  { path: 'admin-panel', component: AdminComponent },
+  { path: 'login-dashboard', component: LoginDashboardComponent },
+  { path: 'cart', component: CartComponent },
 ];
 
 @NgModule({
