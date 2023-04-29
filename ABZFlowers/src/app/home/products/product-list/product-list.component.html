@@ -1,0 +1,26 @@
+<div *ngIf="isLoading" class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<div *ngIf="products.length > 0 && !isLoading" class="accordion">
+  <div *ngFor="let product of products" class="accordion-item">
+    <h2 class="accordion-header" [id]="'heading' + product.id">
+      <button class="accordion-button" type="button" [attr.data-bs-toggle]="'collapse'" [attr.data-bs-target]="'#collapse' + product.id" [attr.aria-expanded]="true" [attr.aria-controls]="'collapse' + product.id">
+        {{ product.itemName }}
+      </button>
+    </h2>
+    <div [id]="'collapse' + product.id" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + product.id" data-bs-parent=".accordion">
+      <div class="accordion-body">
+        <div class="product-image">
+          <img [src]="product.image" [alt]="product.itemName">
+        </div>
+        <p>{{ product.price }} {{ product.currency }}</p>
+
+        <div class="d-flex justify-content-end">
+          <a [routerLink]="['/edit', product.id]" class="btn btn-primary">EDIT</a>
+          <button class="btn btn-danger ms-2" (click)="onDelete(product.id)">DELETE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="info-text" *ngIf="products.length <= 0 && !isLoading">No products added yet!</p>
