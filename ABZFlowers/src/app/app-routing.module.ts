@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'admin-panel', component: AdminComponent },
   { path: 'login-dashboard', component: LoginDashboardComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
 ];
 

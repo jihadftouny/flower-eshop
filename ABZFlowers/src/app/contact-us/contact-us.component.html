@@ -20,20 +20,33 @@
 
 <div class="text-center">
 <p><b>Get in touch with us</b></p>
-    <table>
-        <tr>
-            <td><input id="name" type="text" name="name" placeholder="Name" /></td>
-            <td><input type="text" name="email" placeholder="Email" /></td>
-            <td><input type="tel" name="number" placeholder="Phone Number" /></td><br>
-            <td><input type="text" name="message" placeholder="Message" /></td>
-        </tr>
-    </table>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Contact Us</h2>
+            <form>
+                <div class="form-group">
+                    <label for="inputName">Name</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Email address</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="inputMessage">Message</label>
+                    <textarea class="form-control" id="inputMessage" rows="5" placeholder="Enter your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
 </div>
 <!-- <a href="#">
     <img src="../../assets/Images/wa" class="position-fixed bottom-0 end-0 m-3" style="width: 50px;">
   </a> -->
   <a href="https://wa.me/96103958855"  class="btn btn-success btn-floating position-fixed bottom-0 end-0 m-3">
-    <img src="../../assets/Images/wa2.png">
     <i class="bi bi-whatsapp"></i>
   </a>
   
