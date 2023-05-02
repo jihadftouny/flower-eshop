@@ -5,15 +5,15 @@
   <div *ngFor="let product of products" class="accordion-item">
     <h2 class="accordion-header" [id]="'heading' + product.id">
       <button class="accordion-button" type="button" [attr.data-bs-toggle]="'collapse'" [attr.data-bs-target]="'#collapse' + product.id" [attr.aria-expanded]="true" [attr.aria-controls]="'collapse' + product.id">
-        {{ product.itemName }}
+        {{ product.title }}
       </button>
     </h2>
     <div [id]="'collapse' + product.id" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + product.id" data-bs-parent=".accordion">
       <div class="accordion-body">
         <div class="product-image">
-          <img [src]="product.image" [alt]="product.itemName">
+          <img [src]="product.imagePath" [alt]="product.title">
         </div>
-        <p>{{ product.price }} {{ product.currency }}</p>
+        <p>{{ product.content }}</p>
 
         <div class="d-flex justify-content-end">
           <a [routerLink]="['/edit', product.id]" class="btn btn-primary">EDIT</a>

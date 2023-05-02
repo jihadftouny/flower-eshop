@@ -39,12 +39,6 @@ export class ProductCreateComponent implements OnInit {
         validators: [Validators.required],
         asyncValidators: [mimeType],
       }),
-      itemName: new FormControl(null, {
-        validators: [Validators.required],
-      }),
-      price: new FormControl(null, {
-        validators: [Validators.required],
-      }),
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('productId')) {
@@ -55,24 +49,20 @@ export class ProductCreateComponent implements OnInit {
           this.isLoading = false;
           this.product = {
             id: productData._id,
-            image: productData.image,
-            quantity: productData.quantity,
+            imagePath: productData.imagePath,
             currency: productData.currency,
-            price: productData.price,
-            itemName: productData.itemName,
             title: productData.title,
-            content: productData.content,
-            imagePath: productData.imagePath
+            quantity: productData.quantity,
+            price: productData.price,
+            content: productData.content
           };
           this.form.setValue({
             quantity: this.product.quantity,
             currency: this.product.currency,
             price: this.product.price,
-            itemName: this.product.itemName,
             title: this.product.title,
             content: this.product.content,
-            imagePath: this.product.image,
-            image: this.product.image,
+            image: this.product.imagePath
           });
         });
 
@@ -102,24 +92,22 @@ export class ProductCreateComponent implements OnInit {
     this.isLoading = true;
     if (this.mode === 'create') {
       this.productsService.addProduct(
-        this.form.value.name,
+        this.form.value.content,
         this.form.value.price,
         this.form.value.quantity,
         this.form.value.currency,
         this.form.value.title,
-        this.form.value.content,
-        this.form.value.image
+        this.form.value.imagePath
       );
     } else {
       this.productsService.updateProduct(
         this.productId,
-        this.form.value.name,
+        this.form.value.content,
         this.form.value.price,
         this.form.value.quantity,
         this.form.value.currency,
         this.form.value.title,
-        this.form.value.content,
-        this.form.value.image
+        this.form.value.imagePath
       );
     }
     this.form.reset();

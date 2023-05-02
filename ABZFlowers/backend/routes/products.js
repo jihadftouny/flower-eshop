@@ -36,10 +36,9 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
   const inventory = new Inventory({
     title: req.body.title,
     content: req.body.content,
-    image: url + "/images/" + req.file.filename,
-    imagePath: url + "/imagesd/" + req.file.filename,
+    imagePath: url + "/images/" + req.file.filename,
   }); //this object is being managed by mongoose, you can save the objects created here directly on monngoDB
-  product.save().then(createdProduct => {
+  inventory.save().then(createdProduct => {
     res.status(201).json({
       message: "Product added succesfully",
       product: {
@@ -55,14 +54,11 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
 
 router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next) => {
   let imagePath = req.body.imagePath;
-  let image = req.body.image;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/imagesd/" + req.file.filename;
-    image = url + "/images/" + req.file.filename
+    imagePath = url + "/images/" + req.file.filename
   }
   const inventory = new Inventory({
-    _id: mongoose.Types.ObjectId(),
     image: req.body.image,
     quantity: req.body.quantity,
     currency: req.body.currency,

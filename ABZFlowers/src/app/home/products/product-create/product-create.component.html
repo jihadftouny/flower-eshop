@@ -1,7 +1,7 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <!-- #postForm is a reference, if no values assigned (#postForm without =""), it gives access to html element. this gives us acces to this form object angular created (with assigned ngForm) -->
-  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+  <!-- #postForm is a reference, if no values assigned (#postForm without =""), it gives access to html element. this gives us acces to this form object angular created (with assigned ngForm)-->
+  <form [formGroup]="form" (submit)="onSaveProduct()" *ngIf="!isLoading">
     <mat-form-field>
       <input
         matInput

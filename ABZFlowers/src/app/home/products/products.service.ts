@@ -25,8 +25,6 @@ export class ProductsService {
               price: product.price,
               quantity: product.quantity,
               currency: product.currency,
-              itemName: product.itemName,
-              image: product.image,
               title: product.title,
               content: product.content,
               id: product._id,
@@ -49,30 +47,27 @@ export class ProductsService {
   getProduct(id: string) {
     return this.http.get<{
       _id: string;
-      image: string;
-      quantity: number;
+      quantity: string;
       currency: string;
-      price: number;
-      itemName: string;
-      title: string;
+      price: string;
       content: string;
+      title: string;
       imagePath: string;
     }>('http://localhost:3000/api/products/' + id);
   }
 
   addProduct(
     title: string,
-    content: string,
     image: File,
-    itemName: string,
+    content: string,
     quantity: string,
     price: string,
     currency: string
   ) {
     const productData = new FormData(); //data format allows us to combine text values and blobs (files)_
-    productData.append('itemName', itemName);
-    productData.append('quantity', String(Number(quantity)));
-    productData.append('price', String(Number(price)));
+    productData.append('content', content);
+    productData.append('quantity', quantity);
+    productData.append('price', price);
     productData.append('currency', currency);
     productData.append('title', title);
     productData.append('content', content);
@@ -87,11 +82,9 @@ export class ProductsService {
           id: responseData.product.id,
           title: title,
           content: content,
-          quantity: Number(quantity),
-          price: Number(price),
+          quantity: quantity,
+          price: price,
           currency: currency,
-          itemName: itemName,
-          image: responseData.product.image,
           imagePath: responseData.product.imagePath,
         };
         this.products.push(product);
@@ -108,7 +101,6 @@ export class ProductsService {
     title: string,
     content: string,
     image: File | string,
-    itemName: string,
     quantity: string,
     price: string,
     currency: string
@@ -116,11 +108,10 @@ export class ProductsService {
     let productData: Product | FormData;
     if (typeof image === 'object') {
       productData = new FormData();
-      productData.append('itemName', itemName);
-      productData.append('quantity', String(Number(quantity)));
-      productData.append('price', String(Number(price)));
-      productData.append('currency', currency);
       productData.append('id', id);
+      productData.append('quantity', quantity);
+      productData.append('price', price);
+      productData.append('currency', currency);
       productData.append('title', title);
       productData.append('content', content);
       productData.append('image', image, title);
@@ -133,7 +124,6 @@ export class ProductsService {
         price: price,
         quantity: quantity,
         currency: currency,
-        image: image
       };
     }
     this.http
@@ -143,11 +133,9 @@ export class ProductsService {
         const oldProductIndex = updatedProducts.findIndex((p) => p.id === id);
         const product: Product = {
           id: id,
-          price: Number(price),
-          quantity: Number(quantity),
+          price: price,
+          quantity: quantity,
           currency: currency,
-          itemName: itemName,
-          image: '',
           title: title,
           content: content,
           imagePath: '',
