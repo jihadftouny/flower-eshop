@@ -13,6 +13,15 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { CartComponent } from './cart/cart.component';
 import { EventsComponent } from './events/events.component';
 import { AdminComponent } from './admin/admin.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { ProductCreateComponent } from './home/products/product-create/product-create.component';
+
+import { ProductListComponent } from './home/products/product-list/product-list.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,11 +35,16 @@ import { AdminComponent } from './admin/admin.component';
     AboutUsComponent,
     CartComponent,
     EventsComponent,
-    AdminComponent
+    AdminComponent,
+    ProductCreateComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
