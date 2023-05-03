@@ -20,6 +20,11 @@ const routes: Routes = [
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'events', component: EventsComponent },
   { path: 'admin-panel', component: AdminComponent },
+
+  { path: 'login-dashboard', component: LoginDashboardComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'cart', component: CartComponent },
+
   { path: 'list-product', component: ProductListComponent },
   { path: 'create-product', component: ProductCreateComponent },
   { path: 'edit/:productId', component: ProductCreateComponent },
