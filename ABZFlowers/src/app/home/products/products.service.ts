@@ -71,14 +71,12 @@ export class ProductsService {
     productData.append('quantity', quantity);
     productData.append('price', price);
     productData.append('currency', currency);
-
     this.http
       .post<{ message: string; product: Product }>(
         'http://localhost:3000/api/products',
         productData
       )
       .subscribe((responseData) => {
-        console.log("error1");
         const product: Product = {
           id: responseData.product.id,
           title: title,
@@ -88,7 +86,6 @@ export class ProductsService {
           price: price,
           currency: currency,
         };
-        console.log("error2") ;
         this.products.push(product);
         this.productsUpdated.next([...this.products]);
         this.router.navigate(['/']);

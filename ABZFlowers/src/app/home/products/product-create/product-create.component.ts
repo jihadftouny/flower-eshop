@@ -58,20 +58,20 @@ export class ProductCreateComponent implements OnInit {
           this.isLoading = false;
           this.product = {
             id: productData._id,
-            imagePath: productData.imagePath,
-            currency: productData.currency,
             title: productData.title,
+            content: productData.content,
+            imagePath: productData.imagePath,
             quantity: productData.quantity,
             price: productData.price,
-            content: productData.content
+            currency: productData.currency,
           };
           this.form.setValue({
-            quantity: this.product.quantity,
-            currency: this.product.currency,
-            price: this.product.price,
             title: this.product.title,
             content: this.product.content,
-            image: this.product.imagePath
+            image: this.product.imagePath,
+            quantity: this.product.quantity,
+            price: this.product.price,
+            currency: this.product.currency,
           });
         });
 
@@ -104,8 +104,8 @@ export class ProductCreateComponent implements OnInit {
         this.form.value.title,
         this.form.value.content,
         this.form.value.image,
-        this.form.value.price,
         this.form.value.quantity,
+        this.form.value.price,
         this.form.value.currency,
       );
     } else {
@@ -114,8 +114,8 @@ export class ProductCreateComponent implements OnInit {
         this.form.value.title,
         this.form.value.content,
         this.form.value.image,
-        this.form.value.price,
         this.form.value.quantity,
+        this.form.value.price,
         this.form.value.currency,
       );
     }

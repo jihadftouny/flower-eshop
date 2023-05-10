@@ -37,6 +37,9 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
     title: req.body.title,
     content: req.body.content,
     imagePath: url + "/images/" + req.file.filename,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    currency: req.body.currency,
   }); //this object is being managed by mongoose, you can save the objects created here directly on monngoDB
   product.save().then(createdProduct => {
     res.status(201).json({
