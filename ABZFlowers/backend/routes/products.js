@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 
-const Inventory = require("../models/inventory")
+const Product = require("../models/product")
 
 const router = express.Router();
 
@@ -32,13 +32,13 @@ const storage = multer.diskStorage({
 //multer will try to extract a single image
 router.post("", multer({ storage: storage }).single("image"), (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
-  //you're calling this from the models folder product.js, you gave its name as'Inventory'
-  const inventory = new Inventory({
+  //you're calling this from the models folder product.js, you gave its name as'Product'
+  const product = new Product({
     title: req.body.title,
     content: req.body.content,
     imagePath: url + "/images/" + req.file.filename,
   }); //this object is being managed by mongoose, you can save the objects created here directly on monngoDB
-  inventory.save().then(createdProduct => {
+  product.save().then(createdProduct => {
     res.status(201).json({
       message: "Product added succesfully",
       product: {
@@ -58,20 +58,20 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next
     const url = req.protocol + "://" + req.get("host");
     imagePath = url + "/images/" + req.file.filename
   }
-  const inventory = new Inventory({
+  const product = new Product({
     image: req.body.image,
     quantity: req.body.quantity,
     currency: req.body.currency,
     price: req.body.price,
     itemName: req.body.itemName
   })
-  Inventory.updateOne({ _id: req.params.id }, inventory).then(result => {
+  Product.updateOne({ _id: req.params.id }, product).then(result => {
     res.status(200).json({ message: "Update successful!" });
   })
 });
 
 router.get("", (req, res, next) => {
-  Inventory.find() //simply returns all entries, can be narrowed down
+  Product.find() //simply returns all entries, can be narrowed down
     .then(documents => {
       res.status(200).json({
         message: 'Products fetched succesfully!',
@@ -83,17 +83,17 @@ router.get("", (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  Inventory.findById(req.params.id).then(inventory => {
-    if (inventory) {
-      res.status(200).json(inventory);
+  Product.findById(req.params.id).then(product => {
+    if (product) {
+      res.status(200).json(product);
     } else {
-      res.status(404).json({ message: 'Inventory not found!' })
+      res.status(404).json({ message: 'Product not found!' })
     }
   });
 });
 
 router.delete("/:id", (req, res, next) => {
-  Inventory.deleteOne({ _id: req.params.id }).then(result => {
+  Product.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result)
   });
   res.status(200).json({ message: "Product deleted!" });

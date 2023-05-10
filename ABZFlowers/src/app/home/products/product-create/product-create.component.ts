@@ -39,6 +39,15 @@ export class ProductCreateComponent implements OnInit {
         validators: [Validators.required],
         asyncValidators: [mimeType],
       }),
+      quantity: new FormControl(null, {
+        validators: [Validators.required],
+      }),
+      price: new FormControl(null, {
+        validators: [Validators.required],
+      }),
+      currency: new FormControl(null, {
+        validators: [Validators.required],
+      }),
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('productId')) {
@@ -92,22 +101,22 @@ export class ProductCreateComponent implements OnInit {
     this.isLoading = true;
     if (this.mode === 'create') {
       this.productsService.addProduct(
+        this.form.value.title,
         this.form.value.content,
+        this.form.value.image,
         this.form.value.price,
         this.form.value.quantity,
         this.form.value.currency,
-        this.form.value.title,
-        this.form.value.imagePath
       );
     } else {
       this.productsService.updateProduct(
         this.productId,
+        this.form.value.title,
         this.form.value.content,
+        this.form.value.image,
         this.form.value.price,
         this.form.value.quantity,
         this.form.value.currency,
-        this.form.value.title,
-        this.form.value.imagePath
       );
     }
     this.form.reset();

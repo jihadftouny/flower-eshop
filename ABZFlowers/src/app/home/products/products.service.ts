@@ -22,13 +22,13 @@ export class ProductsService {
         map((productData) => {
           return productData.products.map((product) => {
             return {
-              price: product.price,
-              quantity: product.quantity,
-              currency: product.currency,
+              id: product._id,
               title: product.title,
               content: product.content,
-              id: product._id,
               imagePath: product.imagePath,
+              quantity: product.quantity,
+              price: product.price,
+              currency: product.currency,
             };
           });
         })
@@ -47,46 +47,48 @@ export class ProductsService {
   getProduct(id: string) {
     return this.http.get<{
       _id: string;
-      quantity: string;
-      currency: string;
-      price: string;
-      content: string;
       title: string;
+      content: string;
       imagePath: string;
+      quantity: string;
+      price: string;
+      currency: string;
     }>('http://localhost:3000/api/products/' + id);
   }
 
   addProduct(
     title: string,
-    image: File,
     content: string,
+    image: File,
     quantity: string,
     price: string,
     currency: string
   ) {
     const productData = new FormData(); //data format allows us to combine text values and blobs (files)_
-    productData.append('content', content);
-    productData.append('quantity', quantity);
-    productData.append('price', price);
-    productData.append('currency', currency);
     productData.append('title', title);
     productData.append('content', content);
     productData.append('image', image, title);
+    productData.append('quantity', quantity);
+    productData.append('price', price);
+    productData.append('currency', currency);
+
     this.http
       .post<{ message: string; product: Product }>(
         'http://localhost:3000/api/products',
         productData
       )
       .subscribe((responseData) => {
+        console.log("error1");
         const product: Product = {
           id: responseData.product.id,
           title: title,
           content: content,
+          imagePath: responseData.product.imagePath,
           quantity: quantity,
           price: price,
           currency: currency,
-          imagePath: responseData.product.imagePath,
         };
+        console.log("error2") ;
         this.products.push(product);
         this.productsUpdated.next([...this.products]);
         this.router.navigate(['/']);
@@ -109,20 +111,20 @@ export class ProductsService {
     if (typeof image === 'object') {
       productData = new FormData();
       productData.append('id', id);
-      productData.append('quantity', quantity);
-      productData.append('price', price);
-      productData.append('currency', currency);
       productData.append('title', title);
       productData.append('content', content);
       productData.append('image', image, title);
+      productData.append('quantity', quantity);
+      productData.append('price', price);
+      productData.append('currency', currency);
     } else {
       const productData = {
         id: id,
         title: title,
         content: content,
         imagePath: image,
-        price: price,
         quantity: quantity,
+        price: price,
         currency: currency,
       };
     }
@@ -133,12 +135,12 @@ export class ProductsService {
         const oldProductIndex = updatedProducts.findIndex((p) => p.id === id);
         const product: Product = {
           id: id,
-          price: price,
-          quantity: quantity,
-          currency: currency,
           title: title,
           content: content,
           imagePath: '',
+          quantity: quantity,
+          price: price,
+          currency: currency,
         };
         updatedProducts[oldProductIndex] = product;
         this.products = updatedProducts;

@@ -38,6 +38,39 @@
         >Please enter a post title.</mat-error
       >
     </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="quantity"
+        placeholder="Post Quantity"
+      ></textarea>
+      <mat-error *ngIf="form.get('quantity').invalid"
+        >Please enter a post quantity.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="price"
+        placeholder="Post Price"
+      ></textarea>
+      <mat-error *ngIf="form.get('price').invalid"
+        >Please enter a post price.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="currency"
+        placeholder="Post Currency"
+      ></textarea>
+      <mat-error *ngIf="form.get('currency').invalid"
+        >Please enter a post currency.</mat-error
+      >
+    </mat-form-field>
     <button mat-raised-button color="accent" type="submit">Save Post</button>
   </form>
 </mat-card>
