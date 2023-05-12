@@ -9,18 +9,19 @@ import { Product } from './product.model';
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
   private products: Product[] = []; //we dont want anyone accessing this variable from outside
-  private productsUpdated = new Subject<Product[]>(); //we had to use Subject because in the beggining we were pulling a empty array so nothign showed up
+  private productsUpdated = new Subject<{products: Product[], productCount: number}>(); //we had to use Subject because in the beggining we were pulling a empty array so nothign showed up
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getProducts() {
+  getProducts(productsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`; //this is a template expression
     this.http
-      .get<{ message: string; products: any }>(
-        'http://localhost:3000/api/products'
+      .get<{ message: string; products: any, maxProducts: number }>(
+        'http://localhost:3000/api/products' + queryParams
       ) //you can be more clear about the type
       .pipe(
-        map((productData) => {
-          return productData.products.map((product) => {
+        map(productData => {
+          return {products: productData.products.map((product) => {
             return {
               id: product._id,
               title: product.title,
@@ -30,12 +31,16 @@ export class ProductsService {
               price: product.price,
               currency: product.currency,
             };
-          });
+          }),
+          maxProducts: productData.maxProducts};
         })
       ) //allows operators (?)
-      .subscribe((transformedProducts) => {
-        this.products = transformedProducts;
-        this.productsUpdated.next([...this.products]);
+      .subscribe((transformedProductData) => {
+        this.products = transformedProductData.products;
+        this.productsUpdated.next({
+          products: [...this.products],
+          productCount: transformedProductData.maxProducts
+        });
       });
 
     //return [...this.products]; //Good Practice! This is a ts/new js feature that copies an array, not only its reference
@@ -77,17 +82,6 @@ export class ProductsService {
         productData
       )
       .subscribe((responseData) => {
-        const product: Product = {
-          id: responseData.product.id,
-          title: title,
-          content: content,
-          imagePath: responseData.product.imagePath,
-          quantity: quantity,
-          price: price,
-          currency: currency,
-        };
-        this.products.push(product);
-        this.productsUpdated.next([...this.products]);
         this.router.navigate(['/']);
       });
     // added to subscribe method
@@ -130,33 +124,11 @@ export class ProductsService {
     this.http
       .put('http://localhost:3000/api/products/' + id, productData)
       .subscribe((response) => {
-        const updatedProducts = [...this.products];
-        const oldProductIndex = updatedProducts.findIndex((p) => p.id === id);
-        const product: Product = {
-          id: id,
-          title: title,
-          content: content,
-          imagePath: '',
-          quantity: quantity,
-          price: price,
-          currency: currency,
-        };
-        updatedProducts[oldProductIndex] = product;
-        this.products = updatedProducts;
-        this.productsUpdated.next([...this.products]);
         this.router.navigate(['/']);
       });
   }
   deleteProduct(productId: string) {
-    this.http
-      .delete('http://localhost:3000/api/products/' + productId)
-      .subscribe(() => {
-        const updatedProducts = this.products.filter(
-          (product) => product.id !== productId
-        );
-        this.products = updatedProducts;
-        this.productsUpdated.next([...this.products]);
-        //you could just call getProducts, where the null id will be updated, but you'll do something else
-      });
+    return this.http
+      .delete('http://localhost:3000/api/products/' + productId);
   }
 }

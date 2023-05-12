@@ -84,11 +84,25 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next
 });
 
 router.get("", (req, res, next) => {
-  Product.find() //simply returns all entries, can be narrowed down
-    .then(documents => {
+  const pageSize = +req.query.pagesize; //these second parameters are up to youy "pagesize" "page"
+  const currentPage = +req.query.page;
+  const productQuery = Product.find();
+  let fetchedProducts;
+  if (pageSize && currentPage) {
+    productQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  productQuery //simply returns all entries, can be narrowed down
+    .then(documents=> {
+      fetchedProducts = documents;
+      return Product.count();
+    })
+    .then(count => {
       res.status(200).json({
         message: 'Products fetched succesfully!',
-        products: documents
+        products: fetchedProducts,
+        maxProducts: count
       });
     });
   //200 is sucess

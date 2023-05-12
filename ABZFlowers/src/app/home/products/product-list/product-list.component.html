@@ -1,26 +1,18 @@
-<div *ngIf="isLoading" class="spinner-border" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>
-<div *ngIf="products.length > 0 && !isLoading" class="accordion">
-  <div *ngFor="let product of products" class="accordion-item">
-    <h2 class="accordion-header" [id]="'heading' + product.id">
-      <button class="accordion-button" type="button" [attr.data-bs-toggle]="'collapse'" [attr.data-bs-target]="'#collapse' + product.id" [attr.aria-expanded]="true" [attr.aria-controls]="'collapse' + product.id">
-        {{ product.title }}
-      </button>
-    </h2>
-    <div [id]="'collapse' + product.id" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + product.id" data-bs-parent=".accordion">
-      <div class="accordion-body">
-        <div class="product-image">
-          <img [src]="product.imagePath" [alt]="product.title">
-        </div>
-        <p>{{ product.content }}</p>
-
-        <div class="d-flex justify-content-end">
-          <a [routerLink]="['/edit', product.id]" class="btn btn-primary">EDIT</a>
-          <button class="btn btn-danger ms-2" (click)="onDelete(product.id)">DELETE</button>
-        </div>
-      </div>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="products.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let post of products">
+    <mat-expansion-panel-header>
+      {{ post.title }}
+    </mat-expansion-panel-header>
+    <div class="post-image">
+      <img [src]="post.imagePath" [alt]="post.title">
     </div>
-  </div>
-</div>
-<p class="info-text" *ngIf="products.length <= 0 && !isLoading">No products added yet!</p>
+    <p>{{ post.content }}</p>
+    <mat-action-row>
+      <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [length]="totalPosts" [pageSize]="productsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="products.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="products.length <= 0 && !isLoading">No products added yet!</p>

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-product-list',
@@ -17,6 +18,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   products: Product[] = [];
   isLoading = false;
+  totalPosts = 0;
+  productsPerPage = 2;
+  currentPage = 1;
+  pageSizeOptions = [1, 2, 5, 10];
+
   private productsSub: Subscription; //will avoid memory leaks when this component is not part of the display (kills the data)
   // productsService: ProductsService; the public keyword in the constructor automatically creates this and stores values on it
 
@@ -26,13 +32,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.productsService.getProducts();
-
+    this.productsService.getProducts(this.productsPerPage, this.currentPage);
     this.productsSub = this.productsService
       .getProductUpdateListener()
-      .subscribe((products: Product[]) => {
+      .subscribe((productData: {products: Product[], productCount: number}) => {
         this.isLoading = false;
-        this.products = products;
+        this.totalPosts = productData.productCount;
+        this.products = productData.products;
       });
   }
 
@@ -42,6 +48,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(productId: string) {
-    this.productsService.deleteProduct(productId);
+    this.isLoading = true;
+    this.productsService.deleteProduct(productId).subscribe(() => {
+      this.productsService.getProducts(this.productsPerPage, this.currentPage);
+    });
+  }
+
+  onChangedPage(pageData: PageEvent){
+    this.isLoading = true;
+    this.currentPage = pageData.pageIndex + 1;
+    this.productsPerPage = pageData.pageSize;
+    this.productsService.getProducts(this.productsPerPage, this.currentPage);
   }
 }
