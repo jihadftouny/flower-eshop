@@ -105,6 +105,7 @@ export class ProductsService {
     currency: string
   ) {
     let productData: Product | FormData;
+
     if (typeof image === 'object') {
       productData = new FormData();
       productData.append('id', id);
@@ -114,12 +115,13 @@ export class ProductsService {
       productData.append('quantity', quantity);
       productData.append('price', price);
       productData.append('currency', currency);
+      console.log("error1");
     } else {
-      const productData = {
+      productData = {
         id: id,
         title: title,
         content: content,
-        imagePath: image,
+        imagePath: image as string,
         quantity: quantity,
         price: price,
         currency: currency,

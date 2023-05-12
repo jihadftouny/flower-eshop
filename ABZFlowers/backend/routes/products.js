@@ -62,15 +62,25 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next
     imagePath = url + "/images/" + req.file.filename
   }
   const product = new Product({
-    image: req.body.image,
+    _id: req.body.id,
+    imagePath: imagePath,
     quantity: req.body.quantity,
     currency: req.body.currency,
     price: req.body.price,
-    itemName: req.body.itemName
+    title: req.body.title,
+    content: req.body.content
   })
-  Product.updateOne({ _id: req.params.id }, product).then(result => {
+  console.log(product);
+  // Product.updateOne({ _id: req.params.id }, product).then(result => {
+  //   res.status(200).json({ message: "Update successful!" });
+  // })
+  Product.findOneAndUpdate({_id:req.params.id},{$set:product}, null).then(result =>{
+    // if(err){
+    //   return res.status(400).json({error:'You are not authorized'})
+    // }
     res.status(200).json({ message: "Update successful!" });
-  })
+    console.log('deubom');
+  });
 });
 
 router.get("", (req, res, next) => {
