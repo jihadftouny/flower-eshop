@@ -3,6 +3,8 @@ const multer = require("multer");
 
 const Product = require("../models/product")
 
+const checkAuth = require("../middleware/check-auth");
+
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
@@ -30,7 +32,8 @@ const storage = multer.diskStorage({
 });
 
 //multer will try to extract a single image
-router.post("", multer({ storage: storage }).single("image"), (req, res, next) => {
+router.post("", checkAuth, multer({ storage: storage }).single("image"), (req, res, next) => {
+  console.log("Jooj");
   const url = req.protocol + '://' + req.get("host");
   //you're calling this from the models folder product.js, you gave its name as'Product'
   const product = new Product({
@@ -55,7 +58,7 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
   // sending a second response with next() would cause an error
 });
 
-router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next) => {
+router.put("/:id", checkAuth, multer({ storage: storage }).single("image"), (req, res, next) => {
   let imagePath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
@@ -74,7 +77,7 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next
   // Product.updateOne({ _id: req.params.id }, product).then(result => {
   //   res.status(200).json({ message: "Update successful!" });
   // })
-  Product.findOneAndUpdate({_id:req.params.id},{$set:product}, null).then(result =>{
+  Product.findOneAndUpdate({ _id: req.params.id }, { $set: product }, null).then(result => {
     // if(err){
     //   return res.status(400).json({error:'You are not authorized'})
     // }
@@ -94,7 +97,7 @@ router.get("", (req, res, next) => {
       .limit(pageSize);
   }
   productQuery //simply returns all entries, can be narrowed down
-    .then(documents=> {
+    .then(documents => {
       fetchedProducts = documents;
       return Product.count();
     })
@@ -119,7 +122,7 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", checkAuth, (req, res, next) => {
   Product.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result)
   });

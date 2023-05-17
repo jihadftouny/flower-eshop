@@ -7,11 +7,12 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CartComponent } from './cart/cart.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/login/login.component';
 import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProductCreateComponent } from './home/products/product-create/product-create.component';
 import { ProductListComponent } from './home/products/product-list/product-list.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -23,6 +24,7 @@ const routes: Routes = [
 
   { path: 'login-dashboard', component: LoginDashboardComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'cart', component: CartComponent },
 
   { path: 'list-product', component: ProductListComponent },

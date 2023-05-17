@@ -8,10 +8,9 @@ const mongoose = require("mongoose");
 
 
 const productsRoutes = require("./routes/products")
+const usersRoutes = require("./routes/user")
 
 
-
-// handling a request for a single op
 // storing the express import in a constant
 const app = express();
 mongoose.connect("mongodb://localhost:27017/abz-flowers")
@@ -30,13 +29,13 @@ mongoose.connect("mongodb://localhost:27017/abz-flowers")
 app.use(bodyParser.json());
 //you can also do other types of body suchs as:
 //app.use(bodyParser.urlencoded({ extended: false })); //this line can be commented out, it's not being used right now
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join("backend/images"))); //any request with /images are alowed to access now, but you have to map with path package, forwarding it to backend/images
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept");
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.setHeader("Access-Control-Allow-Methods",
     "GET, POST, PATCH, PUT, DELETE, OPTIONS");
   next();
@@ -46,6 +45,7 @@ app.use((req, res, next) => {
 
 //imports products.js from routes folder
 app.use("/api/products", productsRoutes);
+app.use("/api/user", usersRoutes);
 
 //now we want to export this app to the node.js server in root folder
 

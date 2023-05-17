@@ -1,3 +1,22 @@
+<!--Testing login-->
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
+      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
+      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Login</button>
+  </form>
+</mat-card>
+
+
+<!--For future implementation-->
+
 <div class="container">
   <div class="row justify-content-center">
       <div class="col-md-6">
@@ -24,18 +43,18 @@
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                 Register!
               </button>
-              
+
               <!-- The Modal -->
               <div class="modal" id="myModal">
                 <div class="modal-dialog">
                 <div class="modal-content">
-              
+
                   <!-- Modal Header -->
                   <div class="modal-header">
                   <h4 class="modal-title">Create Your Account</h4>
                   <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                   </div>
-              
+
                   <!-- Modal body -->
                   <div class="modal-body">
                   <div class="container">
@@ -66,16 +85,17 @@
                     </div>
                   </div>
                   </div>
-              
+
                   <!-- Modal footer -->
                   <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                   </div>
-              
+
                 </div>
                 </div>
               </div>
-            
+
           </div>
   </div>
 </div>
+

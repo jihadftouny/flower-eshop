@@ -9,37 +9,42 @@ import { Product } from './product.model';
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
   private products: Product[] = []; //we dont want anyone accessing this variable from outside
-  private productsUpdated = new Subject<{products: Product[], productCount: number}>(); //we had to use Subject because in the beggining we were pulling a empty array so nothign showed up
+  private productsUpdated = new Subject<{
+    products: Product[];
+    productCount: number;
+  }>(); //we had to use Subject because in the beggining we were pulling a empty array so nothign showed up
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getProducts(productsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`; //this is a template expression
     this.http
-      .get<{ message: string; products: any, maxProducts: number }>(
+      .get<{ message: string; products: any; maxProducts: number }>(
         'http://localhost:3000/api/products' + queryParams
       ) //you can be more clear about the type
       .pipe(
-        map(productData => {
-          return {products: productData.products.map((product) => {
-            return {
-              id: product._id,
-              title: product.title,
-              content: product.content,
-              imagePath: product.imagePath,
-              quantity: product.quantity,
-              price: product.price,
-              currency: product.currency,
-            };
-          }),
-          maxProducts: productData.maxProducts};
+        map((productData) => {
+          return {
+            products: productData.products.map((product) => {
+              return {
+                id: product._id,
+                title: product.title,
+                content: product.content,
+                imagePath: product.imagePath,
+                quantity: product.quantity,
+                price: product.price,
+                currency: product.currency,
+              };
+            }),
+            maxProducts: productData.maxProducts,
+          };
         })
       ) //allows operators (?)
       .subscribe((transformedProductData) => {
         this.products = transformedProductData.products;
         this.productsUpdated.next({
           products: [...this.products],
-          productCount: transformedProductData.maxProducts
+          productCount: transformedProductData.maxProducts,
         });
       });
 
@@ -109,7 +114,7 @@ export class ProductsService {
       productData.append('quantity', quantity);
       productData.append('price', price);
       productData.append('currency', currency);
-      console.log("error1");
+      console.log('error1');
     } else {
       productData = {
         id: id,
@@ -128,7 +133,6 @@ export class ProductsService {
       });
   }
   deleteProduct(productId: string) {
-    return this.http
-      .delete('http://localhost:3000/api/products/' + productId);
+    return this.http.delete('http://localhost:3000/api/products/' + productId);
   }
 }
