@@ -13,6 +13,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ProductCreateComponent } from './home/products/product-create/product-create.component';
 import { ProductListComponent } from './home/products/product-list/product-list.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -28,12 +29,13 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
 
   { path: 'list-product', component: ProductListComponent },
-  { path: 'create-product', component: ProductCreateComponent },
-  { path: 'edit/:productId', component: ProductCreateComponent },
+  { path: 'create-product', component: ProductCreateComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:productId', component: ProductCreateComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}
