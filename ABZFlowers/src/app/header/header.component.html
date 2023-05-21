@@ -24,17 +24,20 @@
                     <a class="nav-link" routerLink="/events">WEDDINGS AND EVENTS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/contact-us">CONTACT US</a>
+                    <a class="nav-link" routerLink="/list-product">CONTACT US</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/create-product">ABOUT US</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/login-dashboard">MY ACCOUNT</a>
+                    <a *ngIf="userIsAuthenticated" class="nav-link" routerLink="/login-dashboard">MY ACCOUNT</a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="!userIsAuthenticated" class="nav-item">
                     <a class="nav-link" routerLink="/login">SIGN IN</a>
                 </li>
+                <li *ngIf="userIsAuthenticated" (click)="onLogout()" class="nav-item">
+                  <a class="nav-link" routerLink="/login">LOGOUT</a>
+              </li>
 
             </ul>
 

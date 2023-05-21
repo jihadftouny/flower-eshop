@@ -3,6 +3,7 @@ import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,11 +23,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
   productsPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
+  userIsAuthenticated = false;
+  private postsSub: Subscription;
+  private authStatusSub: Subscription;
 
   private productsSub: Subscription; //will avoid memory leaks when this component is not part of the display (kills the data)
   // productsService: ProductsService; the public keyword in the constructor automatically creates this and stores values on it
 
-  constructor(public productsService: ProductsService) {
+  constructor(
+    public productsService: ProductsService,
+    private authService: AuthService
+  ) {
     //this.productsService = productsService; the public keyword in the constructor automatically creates this and stores values on it
   }
 
@@ -35,16 +42,25 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.productsService.getProducts(this.productsPerPage, this.currentPage);
     this.productsSub = this.productsService
       .getProductUpdateListener()
-      .subscribe((productData: {products: Product[], productCount: number}) => {
-        this.isLoading = false;
-        this.totalPosts = productData.productCount;
-        this.products = productData.products;
+      .subscribe(
+        (productData: { products: Product[]; productCount: number }) => {
+          this.isLoading = false;
+          this.totalPosts = productData.productCount;
+          this.products = productData.products;
+        }
+      );
+      this.userIsAuthenticated = this.authService.getIsAuth();
+      this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
       });
   }
 
   //called whenever the component is about to be destroyed
   ngOnDestroy() {
     this.productsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
   onDelete(productId: string) {
@@ -54,7 +70,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onChangedPage(pageData: PageEvent){
+  onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.productsPerPage = pageData.pageSize;
