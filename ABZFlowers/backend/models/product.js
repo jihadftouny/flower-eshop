@@ -9,6 +9,7 @@ const productSchema = new mongoose.Schema({
   quantity: { type: String},
   price: { type: String },
   currency: { type: String },
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
 module.exports = mongoose.model('Product', productSchema); //name and schema you will use, and export

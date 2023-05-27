@@ -34,6 +34,7 @@ export class ProductsService {
                 quantity: product.quantity,
                 price: product.price,
                 currency: product.currency,
+                creator: product.creator
               };
             }),
             maxProducts: productData.maxProducts,
@@ -63,6 +64,7 @@ export class ProductsService {
       quantity: string;
       price: string;
       currency: string;
+      creator: string;
     }>('http://localhost:3000/api/products/' + id);
   }
 
@@ -124,6 +126,7 @@ export class ProductsService {
         quantity: quantity,
         price: price,
         currency: currency,
+        creator: null // we set this as null to remove capability of user to manipulate it
       };
     }
     this.http

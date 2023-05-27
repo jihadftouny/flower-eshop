@@ -24,9 +24,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
-  private postsSub: Subscription;
+  userId: string;
   private authStatusSub: Subscription;
-
   private productsSub: Subscription; //will avoid memory leaks when this component is not part of the display (kills the data)
   // productsService: ProductsService; the public keyword in the constructor automatically creates this and stores values on it
 
@@ -40,6 +39,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.productsService.getProducts(this.productsPerPage, this.currentPage);
+    this.userId = this.authService.getUserId();
     this.productsSub = this.productsService
       .getProductUpdateListener()
       .subscribe(
@@ -54,8 +54,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
       });
   }
+
+
 
   //called whenever the component is about to be destroyed
   ngOnDestroy() {
@@ -67,6 +70,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.productsService.deleteProduct(productId).subscribe(() => {
       this.productsService.getProducts(this.productsPerPage, this.currentPage);
+    }, () => {
+      this.isLoading = false;
     });
   }
 

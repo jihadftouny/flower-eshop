@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -6,13 +6,15 @@ import { ProductsService } from '../products.service';
 import { Product } from '../product.model';
 
 import { mimeType } from './mime-type.validator';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.css'],
 })
-export class ProductCreateComponent implements OnInit {
+export class ProductCreateComponent implements OnInit, OnDestroy {
   enteredTitle = '';
   enteredContent = '';
   product: Product;
@@ -21,13 +23,18 @@ export class ProductCreateComponent implements OnInit {
   imagePreview: string;
   private mode = 'create';
   private productId: string;
+  private authStatusSub: Subscription;
 
   constructor(
     public productsService: ProductsService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.authService.getAuthStatusListener().subscribe((authStatus) => {
+      this.isLoading = false;
+    });
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)],
@@ -54,27 +61,29 @@ export class ProductCreateComponent implements OnInit {
         this.mode = 'edit';
         this.productId = paramMap.get('productId');
         this.isLoading = true;
-        this.productsService.getProduct(this.productId).subscribe(productData => {
-          this.isLoading = false;
-          this.product = {
-            id: productData._id,
-            title: productData.title,
-            content: productData.content,
-            imagePath: productData.imagePath,
-            quantity: productData.quantity,
-            price: productData.price,
-            currency: productData.currency,
-          };
-          this.form.setValue({
-            title: this.product.title,
-            content: this.product.content,
-            image: this.product.imagePath,
-            quantity: this.product.quantity,
-            price: this.product.price,
-            currency: this.product.currency,
+        this.productsService
+          .getProduct(this.productId)
+          .subscribe((productData) => {
+            this.isLoading = false;
+            this.product = {
+              id: productData._id,
+              title: productData.title,
+              content: productData.content,
+              imagePath: productData.imagePath,
+              quantity: productData.quantity,
+              price: productData.price,
+              currency: productData.currency,
+              creator: productData.creator,
+            };
+            this.form.setValue({
+              title: this.product.title,
+              content: this.product.content,
+              image: this.product.imagePath,
+              quantity: this.product.quantity,
+              price: this.product.price,
+              currency: this.product.currency,
+            });
           });
-        });
-
       } else {
         this.mode = 'create';
         this.productId = null;
@@ -95,7 +104,7 @@ export class ProductCreateComponent implements OnInit {
 
   onSaveProduct() {
     if (this.form.invalid) {
-      console.log("Form Invalid")
+      console.log('Form Invalid');
       return;
     }
     this.isLoading = true;
@@ -106,7 +115,7 @@ export class ProductCreateComponent implements OnInit {
         this.form.value.image,
         this.form.value.quantity,
         this.form.value.price,
-        this.form.value.currency,
+        this.form.value.currency
       );
     } else {
       this.productsService.updateProduct(
@@ -116,9 +125,12 @@ export class ProductCreateComponent implements OnInit {
         this.form.value.image,
         this.form.value.quantity,
         this.form.value.price,
-        this.form.value.currency,
+        this.form.value.currency
       );
     }
     this.form.reset();
+  }
+  ngOnDestroy(): void {
+    this.authStatusSub.unsubscribe();
   }
 }

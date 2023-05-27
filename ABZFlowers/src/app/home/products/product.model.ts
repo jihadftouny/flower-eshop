@@ -6,4 +6,5 @@ export interface Product {
   quantity: string;
   price: string;
   currency: string;
+  creator: string;
 }
