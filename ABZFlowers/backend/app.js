@@ -7,14 +7,14 @@ const mongoose = require("mongoose");
 
 
 
-const postsRoutes = require("./routes/posts")
+const productsRoutes = require("./routes/products")
 
 
 
 // handling a request for a single op
 // storing the express import in a constant
 const app = express();
-mongoose.connect("mongodb+srv://jihanger97:PASSWORD@cluster0.ldydwg8.mongodb.net/node-angular?retryWrites=true&w=majority")
+mongoose.connect("mongodb://localhost:27017/abz-flowers")
   .then(() => {
     console.log('Connected to database!');
   })
@@ -44,8 +44,8 @@ app.use((req, res, next) => {
 
 
 
-//imports posts.js from routes folder
-app.use("/api/posts", postsRoutes);
+//imports products.js from routes folder
+app.use("/api/products", productsRoutes);
 
 //now we want to export this app to the node.js server in root folder
 

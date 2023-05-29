@@ -10,6 +10,8 @@ import { CartComponent } from './cart/cart.component';
 import { LoginComponent } from './login/login.component';
 import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
 import { AdminComponent } from './admin/admin.component';
+import { ProductCreateComponent } from './home/products/product-create/product-create.component';
+import { ProductListComponent } from './home/products/product-list/product-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -18,13 +20,18 @@ const routes: Routes = [
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'events', component: EventsComponent },
   { path: 'admin-panel', component: AdminComponent },
+
   { path: 'login-dashboard', component: LoginDashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
+
+  { path: 'list-product', component: ProductListComponent },
+  { path: 'create-product', component: ProductCreateComponent },
+  { path: 'edit/:productId', component: ProductCreateComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 
-const Post = require("../models/post")
+const Inventory = require("../models/inventory")
 
 const router = express.Router();
 
@@ -32,18 +32,19 @@ const storage = multer.diskStorage({
 //multer will try to extract a single image
 router.post("", multer({ storage: storage }).single("image"), (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
-  //you're calling this from the models folder post.js, you gave its name as'Post'
-  const post = new Post({
+  //you're calling this from the models folder product.js, you gave its name as'Inventory'
+  const inventory = new Inventory({
     title: req.body.title,
     content: req.body.content,
-    imagePath: url + "/images/" + req.file.filename,
+    image: url + "/images/" + req.file.filename,
+    imagePath: url + "/imagesd/" + req.file.filename,
   }); //this object is being managed by mongoose, you can save the objects created here directly on monngoDB
-  post.save().then(createdPost => {
+  product.save().then(createdProduct => {
     res.status(201).json({
-      message: "Post added succesfully",
-      post: {
-        ...createdPost, //created properties with all the properties of createdPost
-        id: createdPost._id //override to _id property
+      message: "Product added succesfully",
+      product: {
+        ...createdProduct, //created properties with all the properties of createdProduct
+        id: createdProduct._id //override to _id property
       }
     });
   }); //mongoose function, will create a collection called the same name as the model but plural
@@ -54,27 +55,31 @@ router.post("", multer({ storage: storage }).single("image"), (req, res, next) =
 
 router.put("/:id", multer({ storage: storage }).single("image"), (req, res, next) => {
   let imagePath = req.body.imagePath;
+  let image = req.body.image;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/images/" + req.file.filename
+    imagePath = url + "/imagesd/" + req.file.filename;
+    image = url + "/images/" + req.file.filename
   }
-  const post = new Post({
-    _id: req.body.id,
-    title: req.body.title,
-    content: req.body.content,
-    imagePath: imagePath
+  const inventory = new Inventory({
+    _id: mongoose.Types.ObjectId(),
+    image: req.body.image,
+    quantity: req.body.quantity,
+    currency: req.body.currency,
+    price: req.body.price,
+    itemName: req.body.itemName
   })
-  Post.updateOne({ _id: req.params.id }, post).then(result => {
+  Inventory.updateOne({ _id: req.params.id }, inventory).then(result => {
     res.status(200).json({ message: "Update successful!" });
   })
 });
 
 router.get("", (req, res, next) => {
-  Post.find() //simply returns all entries, can be narrowed down
+  Inventory.find() //simply returns all entries, can be narrowed down
     .then(documents => {
       res.status(200).json({
-        message: 'Posts fetched succesfully!',
-        posts: documents
+        message: 'Products fetched succesfully!',
+        products: documents
       });
     });
   //200 is sucess
@@ -82,20 +87,20 @@ router.get("", (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  Post.findById(req.params.id).then(post => {
-    if (post) {
-      res.status(200).json(post);
+  Inventory.findById(req.params.id).then(inventory => {
+    if (inventory) {
+      res.status(200).json(inventory);
     } else {
-      res.status(404).json({ message: 'Post not found!' })
+      res.status(404).json({ message: 'Inventory not found!' })
     }
   });
 });
 
 router.delete("/:id", (req, res, next) => {
-  Post.deleteOne({ _id: req.params.id }).then(result => {
+  Inventory.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result)
   });
-  res.status(200).json({ message: "Post deleted!" });
+  res.status(200).json({ message: "Product deleted!" });
 });
 
 module.exports = router;
