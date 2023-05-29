@@ -48,7 +48,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <h2 class="text-center mb-4">Contact Us</h2>
-                    <form>
+                    <form style="margin-bottom: 20px;">
                         <div class="form-group">
                             <label for="inputName">Name</label>
                             <input type="text" class="form-control" id="inputName" placeholder="Enter your name">
@@ -73,61 +73,15 @@
         <i class="bi bi-whatsapp"></i>
     </a>
 
-
-
-    <!-- google  maps -->
-    <!-- <div id="map-container-google-2" class="z-depth-1-half map-container" style="height: 500px">
-        <iframe src="https://goo.gl/maps/JTrEz7jzeQX8VhQBA" frameborder="0" style="border:0" allowfullscreen></iframe>
-    </div>
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-sm-12">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://goo.gl/maps/JTrEz7jzeQX8VhQBA"
-                        allowfullscreen></iframe>
+                <div class="text-center">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d414.17797746932706!2d35.50571600613421!3d33.85296681095362!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slb&q=33.852977,35.505616" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
-    </div> -->
-
-    
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Google Maps Example</title>
-      <style>
-        #map {
-          height: 400px;
-          width: 100%;
-        }
-      </style>
-    </head>
-    <body>
-      <div id="map"></div>
-    
-      <script>
-        function initMap() {
-          // Specify the coordinates of the location to center the map
-          var myLatLng = { lat: 51.5074, lng: -0.1278 };
-    
-          // Create a map object and set its properties
-          var map = new google.maps.Map(document.getElementById('map'), {
-            center: myLatLng,
-            zoom: 12
-          });
-    
-          // Create a marker to indicate the location
-          var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'Hello, World!'
-          });
-        }
-      </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIjC4o_cFF4aHdXhPuRnzgXsBhimVsmVI&callback=initMap" async defer></script>
-    </body>
-    </html>
+    </div>
     
 
 
