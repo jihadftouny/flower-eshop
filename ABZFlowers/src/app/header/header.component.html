@@ -33,10 +33,10 @@
                     <a *ngIf="userIsAuthenticated" class="nav-link" routerLink="/login-dashboard">MY ACCOUNT</a>
                 </li>
                 <li *ngIf="!userIsAuthenticated" class="nav-item">
-                    <a class="nav-link" routerLink="/login">SIGN IN</a>
+                    <a class="nav-link" routerLink="auth/login">SIGN IN</a>
                 </li>
                 <li *ngIf="userIsAuthenticated" (click)="onLogout()" class="nav-item">
-                  <a class="nav-link" routerLink="/login">LOGOUT</a>
+                  <a class="nav-link" routerLink="auth/login">LOGOUT</a>
               </li>
 
             </ul>

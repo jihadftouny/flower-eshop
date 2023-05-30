@@ -32,7 +32,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.authService.getAuthStatusListener().subscribe((authStatus) => {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe((authStatus) => {
       this.isLoading = false;
     });
     this.form = new FormGroup({
@@ -130,7 +130,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
     }
     this.form.reset();
   }
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
 }

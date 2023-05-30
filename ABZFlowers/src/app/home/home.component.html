@@ -1,93 +1,38 @@
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="../../assets/Images/pic1.jpg" class="d-block" style="width:100%">
-        </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img
+        src="../../assets/Images/pic1.jpg"
+        class="d-block"
+        style="width: 100%"
+      />
     </div>
+  </div>
 </div>
 
-<!-- the products shown on home page -->
+<!-- the products shown on fhome page -->
 
 <div class="container">
-    <div class="row px-1 pt-1">
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower BunDle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower Bundle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower Bundle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower Bundle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower Bundle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower Bundle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower Bundle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-            <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Flower Bundle</h4>
-                    <p class="card-text">$5</p>
-                    <a href="#" class="btn btn-primary">ADD TO CART</a>
-                </div>
-            </div>
-
-            
+  <div class="row px-1 pt-1">
+    <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white" *ngFor="let product of products">
+      <img class="card-img-top" [src]="product.imagePath" alt="Card image" style="width: 100%" />
+      <div class="card-body">
+        <h4 class="card-title">{{ product.title }}</h4>
+        <p class="card-text">{{ product.price }}</p>
+        <a href="#" class="btn btn-primary">ADD TO CART</a>
+      </div>
     </div>
+  </div>
 
-        <!-- <a aria-label="Chat on WhatsApp" href="https://wa.me/96103958855"> -->
-            <!-- <img alt="Chat on WhatsApp" src="../../assets/Images/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.png" /> -->
 
-            <a aria-label="Chat on WhatsApp" href="https://wa.me/96103958855">
-                <img alt="Chat on WhatsApp" src="../../assets/Images/wa2.png"/>
-                </a>
+  <!-- <a aria-label="Chat on WhatsApp" href="https://wa.me/96103958855"> -->
+  <!-- <img alt="Chat on WhatsApp" src="../../assets/Images/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.png" /> -->
 
-            
+  <a aria-label="Chat on WhatsApp" href="https://wa.me/96103958855">
+    <img alt="Chat on WhatsApp" src="../../assets/Images/wa2.png" />
+  </a>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>

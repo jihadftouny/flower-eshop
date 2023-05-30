@@ -14,6 +14,7 @@ import { ProductCreateComponent } from './home/products/product-create/product-c
 import { ProductListComponent } from './home/products/product-list/product-list.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
+import { AuthModule } from './auth/auth.module';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -23,14 +24,14 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'admin-panel', component: AdminComponent },
 
-  { path: 'login-dashboard', component: LoginDashboardComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+
   { path: 'cart', component: CartComponent },
 
   { path: 'list-product', component: ProductListComponent },
   { path: 'create-product', component: ProductCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/:productId', component: ProductCreateComponent, canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

@@ -5,6 +5,9 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { Product } from './product.model';
+import { environment } from 'environments/environment';
+
+const BACKEND_URL = environment.apiUrl + "/products/"
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
@@ -20,7 +23,7 @@ export class ProductsService {
     const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`; //this is a template expression
     this.http
       .get<{ message: string; products: any; maxProducts: number }>(
-        'http://localhost:3000/api/products' + queryParams
+        BACKEND_URL+ queryParams
       ) //you can be more clear about the type
       .pipe(
         map((productData) => {
@@ -65,7 +68,7 @@ export class ProductsService {
       price: string;
       currency: string;
       creator: string;
-    }>('http://localhost:3000/api/products/' + id);
+    }>(BACKEND_URL + id);
   }
 
   addProduct(
@@ -85,7 +88,7 @@ export class ProductsService {
     productData.append('currency', currency);
     this.http
       .post<{ message: string; product: Product }>(
-        'http://localhost:3000/api/products',
+        BACKEND_URL,
         productData
       )
       .subscribe((responseData) => {
@@ -130,12 +133,12 @@ export class ProductsService {
       };
     }
     this.http
-      .put('http://localhost:3000/api/products/' + id, productData)
+      .put(BACKEND_URL + id, productData)
       .subscribe((response) => {
         this.router.navigate(['/']);
       });
   }
   deleteProduct(productId: string) {
-    return this.http.delete('http://localhost:3000/api/products/' + productId);
+    return this.http.delete(BACKEND_URL + productId);
   }
 }

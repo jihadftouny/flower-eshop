@@ -13,7 +13,7 @@ const usersRoutes = require("./routes/user")
 
 // storing the express import in a constant
 const app = express();
-mongoose.connect("mongodb://localhost:27017/abz-flowers")
+mongoose.connect("mongodb://localhost:27017/abz-flowers") //process.env.MONGO_ATLAS_PW will be here
   .then(() => {
     console.log('Connected to database!');
   })
