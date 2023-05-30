@@ -6,10 +6,8 @@ const imageSchema = new mongoose.Schema({
 });
 
 const eventSchema = new mongoose.Schema({
-  title: {type: String},
+  name: {type: String},
   images: [imageSchema]
 });
+module.exports = mongoose.model('Event', eventSchema);
 
-const EventModel = mongoose.model('Document', eventSchema);
-
-module.exports = EventModel;

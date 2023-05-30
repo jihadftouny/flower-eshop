@@ -25,6 +25,32 @@
   </div>
 </div>
 
+<div class="row px-5 pt-3">
+  <!-- Backend Integration -->
+  <div
+    class="col-xxl-1 col-xl-2 col-md-2 col-sm-12 pb-5"
+    *ngFor="let event of events"
+  >
+    <div class="card shadow rounded-0 border-0 card-bg">
+      <img
+        class="card-img-top rounded-0"
+        [src]="event.imagePath"
+        [alt]="event.name"
+      />
+      <div>{{ event.name }}</div>
+      <div class="card-body text-center d-flex flex-column">
+        <a
+          href="https://api.whatsapp.com/send?phone=96103958855&text=Hello,%20I%20would%20like%20to%20buy%20this"
+          class="btn btn-success"
+        >
+          <i class="bi bi-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- End of Backend Integration -->
+</div>
+
 <!-- The Modal -->
 <div class="modal" id="myModal">
   <div class="modal-dialog">

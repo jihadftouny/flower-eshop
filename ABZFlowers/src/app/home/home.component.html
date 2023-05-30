@@ -19,26 +19,38 @@
     </div>
   </div>
 
-
   <div class="row px-5 pt-3">
-    <div class="col-xxl-1 col-xl-2 col-md-2 col-sm-12 pb-5">
+    <!-- Backend Integration -->
+    <div
+      class="col-xxl-1 col-xl-2 col-md-2 col-sm-12 pb-5"
+      *ngFor="let product of products"
+    >
       <div class="card shadow rounded-0 border-0 card-bg">
         <img
           class="card-img-top rounded-0"
-          src="../../assets/Images/flower1.jpg"
-          alt="Card image"
+          [src]="product.imagePath"
+          [alt]="product.title"
         />
         <div class="card-body text-center d-flex flex-column">
-          <!-- <div class="mt-auto"> -->
           <a
             href="https://api.whatsapp.com/send?phone=96103958855&text=Hello,%20I%20would%20like%20to%20buy%20this"
             class="btn btn-success"
           >
             <i class="bi bi-whatsapp"></i>
           </a>
-          <!-- </div> -->
         </div>
       </div>
     </div>
+    <!-- End of Backend Integration -->
   </div>
+
+  <!-- Backend Integration -->
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <p
+    class="info-text mat-body-1 text-center"
+    *ngIf="products.length <= 0 && !isLoading"
+  >
+    No products added yet!
+  </p>
+  <!-- End of Backend Integration -->
 </div>

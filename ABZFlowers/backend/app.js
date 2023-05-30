@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 
 const productsRoutes = require("./routes/products")
 const usersRoutes = require("./routes/user")
+const eventsRoutes = require("./routes/events")
 
 
 // storing the express import in a constant
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false })); //this line can be commented out, it's not being used right now
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join("backend/images"))); //any request with /images are alowed to access now, but you have to map with path package, forwarding it to backend/images
+app.use("/images/events", express.static(path.join("backend/images/events"))); //any request with /images are alowed to access now, but you have to map with path package, forwarding it to backend/images
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -46,6 +48,7 @@ app.use((req, res, next) => {
 //imports products.js from routes folder
 app.use("/api/products", productsRoutes);
 app.use("/api/user", usersRoutes);
+app.use("/api/events", eventsRoutes);
 
 //now we want to export this app to the node.js server in root folder
 

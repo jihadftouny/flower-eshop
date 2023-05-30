@@ -14,7 +14,7 @@ export class HomeComponent {
   products: Product[] = [];
   isLoading = false;
   totalPosts = 0;
-  productsPerPage = 2;
+  productsPerPage = 10;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
@@ -27,7 +27,6 @@ export class HomeComponent {
     public productsService: ProductsService,
     private authService: AuthService
   ) {
-    //this.productsService = productsService; the public keyword in the constructor automatically creates this and stores values on it
   }
 
   ngOnInit() {

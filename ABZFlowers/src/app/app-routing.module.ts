@@ -14,12 +14,12 @@ import { ProductListComponent } from './home/products/product-list/product-list.
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
+import { EventCreateComponent } from './events/event-create/event-create.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   { path: 'contact-us', component: ContactUsComponent },
-  { path: 'events', component: EventsComponent },
   { path: 'admin-panel', component: AdminComponent },
 
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
@@ -29,6 +29,10 @@ const routes: Routes = [
   { path: 'list-product', component: ProductListComponent },
   { path: 'create-product', component: ProductCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/:productId', component: ProductCreateComponent, canActivate: [AuthGuard] },
+
+  { path: 'events', component: EventsComponent },
+  { path: 'create-event', component: EventCreateComponent, canActivate: [AuthGuard] },
+  { path: 'edit/event/:eventId', component: EventCreateComponent, canActivate: [AuthGuard] },
 
 ];
 

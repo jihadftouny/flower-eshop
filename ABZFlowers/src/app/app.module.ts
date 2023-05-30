@@ -28,6 +28,7 @@ import { ErrorComponent } from './error/error.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './home/products/products.module';
+import { EventsModule } from './events/events.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,6 @@ import { ProductsModule } from './home/products/products.module';
     LoginDashboardComponent,
     ContactUsComponent,
     CartComponent,
-    EventsComponent,
     AdminComponent,
     ErrorComponent,
 
@@ -51,6 +51,7 @@ import { ProductsModule } from './home/products/products.module';
     AngularMaterialModule,
     ProductsModule,
     AuthModule,
+    EventsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
