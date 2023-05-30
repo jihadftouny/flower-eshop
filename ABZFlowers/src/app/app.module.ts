@@ -9,7 +9,6 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import { AboutUsComponent } from './about-us/about-us.component';
 import { CartComponent } from './cart/cart.component';
 import { EventsComponent } from './events/events.component';
 import { AdminComponent } from './admin/admin.component';
@@ -38,7 +37,6 @@ import { ProductsModule } from './home/products/products.module';
     HeaderComponent,
     LoginDashboardComponent,
     ContactUsComponent,
-    AboutUsComponent,
     CartComponent,
     EventsComponent,
     AdminComponent,
