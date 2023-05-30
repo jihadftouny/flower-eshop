@@ -1,85 +1,154 @@
 <div class="container">
-    <div class="row px-1 pt-5">
-        <div class="text-center pb-5">
-            <h3>Events</h3>
-        </div>
-
-        <div class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white border-0">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#myModal">
-                <img class="card-img-top" src="../../assets/Images/flower1.jpg" alt="Card image" style="width:100%">
-            </a>
-            <div class="card-body text-center d-flex flex-column align-items-center" style="padding-bottom: 10px;">
-                <div style="flex-grow: 1;"></div>
-                <h4 style="margin-bottom: 0;">Valentines</h4>
-            </div>
-        </div>
-
+  <div class="row px-5 pt-5 text-center">
+    <div class="display-5">Events</div>
+  </div>
+  <div class="row px-1">
+    <div
+      class="card col-xxl-2 col-xl-3 col-md-6 col-sm-12 pb-5 bg-white border-0"
+    >
+      <a href="#" data-bs-toggle="modal" data-bs-target="#myModal">
+        <img
+          class="card-img-top"
+          src="../../assets/Images/flower1.jpg"
+          alt="Card image"
+          style="width: 100%"
+        />
+      </a>
+      <div
+        class="card-body text-center d-flex flex-column align-items-center"
+        style="padding-bottom: 10px"
+      >
+        <div style="flex-grow: 1"></div>
+        <h1 style="margin-bottom: 0">Valentines</h1>
+      </div>
     </div>
+  </div>
 </div>
-
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Valentine's Day</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- Carousel -->
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+          <!-- Indicators/dots -->
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#demo"
+              data-bs-slide-to="0"
+              class="active"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#demo"
+              data-bs-slide-to="1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#demo"
+              data-bs-slide-to="2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#demo"
+              data-bs-slide-to="3"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#demo"
+              data-bs-slide-to="4"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#demo"
+              data-bs-slide-to="5"
+            ></button>
+          </div>
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Valentine's Day</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <!-- The slideshow/Customized/carousel -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="../../assets/Images/Valentines/v1.jpg"
+                alt="V1"
+                class="d-block w-100"
+              />
             </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <!-- Carousel -->
-                <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
-                    <!-- Indicators/dots -->
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-                        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-                        <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
-                        <button type="button" data-bs-target="#demo" data-bs-slide-to="4"></button>
-                        <button type="button" data-bs-target="#demo" data-bs-slide-to="5"></button>
-                    </div>
-
-                    <!-- The slideshow/Customized/carousel -->
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../../assets/Images/Valentines/v1.jpg" alt="V1" class="d-block w-100">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../assets/Images/Valentines/v8.jpg" alt="V2" class="d-block w-100">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../assets/Images/Valentines/v7.jpg" alt="V7" class="d-block w-100">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../assets/Images/Valentines/v4.jpg" alt="V4" class="d-block w-100">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../assets/Images/Valentines/v5.jpg" alt="V5" class="d-block w-100">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../assets/Images/Valentines/v6.jpg" alt="V6" class="d-block w-100">
-                        </div>
-                    </div>
-
-                    <!-- Left and right controls/icons -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
-                </div>
+            <div class="carousel-item">
+              <img
+                src="../../assets/Images/Valentines/v8.jpg"
+                alt="V2"
+                class="d-block w-100"
+              />
             </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <div class="carousel-item">
+              <img
+                src="../../assets/Images/Valentines/v7.jpg"
+                alt="V7"
+                class="d-block w-100"
+              />
             </div>
+            <div class="carousel-item">
+              <img
+                src="../../assets/Images/Valentines/v4.jpg"
+                alt="V4"
+                class="d-block w-100"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="../../assets/Images/Valentines/v5.jpg"
+                alt="V5"
+                class="d-block w-100"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="../../assets/Images/Valentines/v6.jpg"
+                alt="V6"
+                class="d-block w-100"
+              />
+            </div>
+          </div>
 
+          <!-- Left and right controls/icons -->
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#demo"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#demo"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon"></span>
+          </button>
         </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
     </div>
+  </div>
 </div>
