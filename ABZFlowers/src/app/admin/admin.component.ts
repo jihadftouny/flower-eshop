@@ -20,14 +20,16 @@ export class AdminComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   isLoading = false;
   totalPosts = 0;
-  productsPerPage = 2;
+  productsPerPage = 10;
   currentPage = 1;
-  pageSizeOptions = [1, 2, 5, 10];
+  pageSizeOptions = [10, 25, 50];
   userIsAuthenticated = false;
   userId: string;
   private authStatusSub: Subscription;
   private productsSub: Subscription; //will avoid memory leaks when this component is not part of the display (kills the data)
   // productsService: ProductsService; the public keyword in the constructor automatically creates this and stores values on it
+
+  modalImage = "";
 
   constructor(
     public productsService: ProductsService,
@@ -78,5 +80,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.currentPage = pageData.pageIndex + 1;
     this.productsPerPage = pageData.pageSize;
     this.productsService.getProducts(this.productsPerPage, this.currentPage);
+  }
+
+  openImageModal(productId: string) {
+    this.productsService.getProduct(productId).subscribe(product => {
+      this.modalImage = product.imagePath;
+    });
   }
 }

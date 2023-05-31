@@ -1,23 +1,4 @@
 <div class="container-fluid">
-
-
-  <!-- Modal to display the image -->
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="imageModalLabel">{{ selectedProduct?.title }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="selectedProduct = null">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <img [src]="selectedProduct?.imagePath" [alt]="selectedProduct?.title" class="img-fluid" *ngIf="selectedProduct" />
-      </div>
-    </div>
-  </div>
-</div>
-
   <h1 class="display-3">Admin Panel</h1>
 
   <div class="container">
@@ -29,7 +10,7 @@
         placeholder="Search"
         aria-label="Search"
       />
-      <button class="btn btn-outline-info" type="submit">Add</button>
+      <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
     <div class="table-responsive">
@@ -53,15 +34,9 @@
             <td>{{ product.price }}</td>
             <td>{{ product.currency }}</td>
             <td>
-              <button
-                type="button"
-                class="btn btn-link"
-                data-toggle="modal"
-                data-target="#imageModal"
-                (click)="openImageModal(product)"
-              >
-                View Image
-              </button>
+              <div class="product-image">
+              <img [src]="product.imagePath" [alt]="product.title">
+            </div>
             </td>
             <td>
               <button type="button" class="btn btn-danger">Delete</button>

@@ -91,8 +91,9 @@ export class ProductsService {
         BACKEND_URL,
         productData
       )
+      //redirection
       .subscribe((responseData) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/admin-panel']);
       });
     // added to subscribe method
     // this.products.push(product);
@@ -132,6 +133,7 @@ export class ProductsService {
         creator: null // we set this as null to remove capability of user to manipulate it
       };
     }
+    //redirection
     this.http
       .put(BACKEND_URL + id, productData)
       .subscribe((response) => {
