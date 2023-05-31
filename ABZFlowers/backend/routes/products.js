@@ -17,4 +17,21 @@ router.get("/:id", ProductController.getProduct);
 
 router.delete("/:id", checkAuth, ProductController.deleteProduct);
 
+router.get('/search', (req, res, next) => {
+  const searchTerm = req.query.search;
+
+  Product.find({ title: { $regex: searchTerm, $options: 'i' } })
+    .then(products => {
+      res.status(200).json({
+        message: 'Search results fetched successfully',
+        products: products
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching search results failed!'
+      });
+    });
+});
+
 module.exports = router;

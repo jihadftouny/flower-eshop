@@ -10,12 +10,16 @@ import { AuthService } from 'src/app/auth/auth.service';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
+
 export class AdminComponent implements OnInit, OnDestroy {
   // products = [
   //   { title: 'First Product', content: "This is the first product's content" },
   //   { title: 'Second Product', content: "This is the second product's content" },
   //   { title: 'Third Product', content: "This is the third product's content" },
   // ];
+  searchTerm: string;
+  filteredProducts: Product[];
+  searched = false;
 
   products: Product[] = [];
   isLoading = false;
@@ -60,7 +64,19 @@ export class AdminComponent implements OnInit, OnDestroy {
       });
   }
 
-
+  searchProducts(): void {
+    if (!this.searchTerm) {
+      // If search query is empty, show all products
+      this.filteredProducts = this.products;
+      this.searched = false;
+    } else {
+      // Filter products based on search query
+      this.searched=true;
+      this.filteredProducts = this.products.filter((product) =>
+        product.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
 
   //called whenever the component is about to be destroyed
   ngOnDestroy() {
@@ -73,6 +89,12 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.productsService.deleteProduct(productId).subscribe(() => {
       this.productsService.getProducts(this.productsPerPage, this.currentPage);
     });
+  }
+
+  //deprecated
+  onSearch() {
+    // Call a method in the service to perform the search
+    this.productsService.searchProducts(this.searchTerm);
   }
 
   onChangedPage(pageData: PageEvent) {
