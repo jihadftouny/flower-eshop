@@ -39,7 +39,6 @@ import { EventsModule } from './events/events.module';
     LoginDashboardComponent,
     ContactUsComponent,
     CartComponent,
-    AdminComponent,
     ErrorComponent,
 
   ],

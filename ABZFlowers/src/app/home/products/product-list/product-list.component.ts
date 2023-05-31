@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-list',
@@ -11,12 +12,6 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  // products = [
-  //   { title: 'First Product', content: "This is the first product's content" },
-  //   { title: 'Second Product', content: "This is the second product's content" },
-  //   { title: 'Third Product', content: "This is the third product's content" },
-  // ];
-
   products: Product[] = [];
   isLoading = false;
   totalPosts = 0;
@@ -26,15 +21,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
   private authStatusSub: Subscription;
-  private productsSub: Subscription; //will avoid memory leaks when this component is not part of the display (kills the data)
-  // productsService: ProductsService; the public keyword in the constructor automatically creates this and stores values on it
+  private productsSub: Subscription;
+
+  @ViewChild('imageModal') imageModal!: TemplateRef<any>;
 
   constructor(
     public productsService: ProductsService,
-    private authService: AuthService
-  ) {
-    //this.productsService = productsService; the public keyword in the constructor automatically creates this and stores values on it
-  }
+    private authService: AuthService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -58,9 +53,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
-  //called whenever the component is about to be destroyed
   ngOnDestroy() {
     this.productsSub.unsubscribe();
     this.authStatusSub.unsubscribe();
@@ -78,5 +70,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.currentPage = pageData.pageIndex + 1;
     this.productsPerPage = pageData.pageSize;
     this.productsService.getProducts(this.productsPerPage, this.currentPage);
+  }
+
+  openImageModal(product: Product) {
+    this.modalService.open(this.imageModal, { size: 'lg' });
   }
 }
