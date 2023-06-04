@@ -7,7 +7,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { CartComponent } from './cart/cart.component';
 import { LoginComponent } from './login/login.component';
-import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProductCreateComponent } from './home/products/product-create/product-create.component';
 import { ProductListComponent } from './home/products/product-list/product-list.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'admin-panel', component: AdminComponent },
 
-  { path: 'login-dashboard', component: LoginDashboardComponent },
+  { path: 'my-account', component: MyAccountComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
 

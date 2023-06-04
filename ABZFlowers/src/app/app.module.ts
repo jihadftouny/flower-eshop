@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
-import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { CartComponent } from './cart/cart.component';
 import { EventsComponent } from './events/events.component';
@@ -29,7 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     HeaderComponent,
     LoginComponent,
-    LoginDashboardComponent,
+    MyAccountComponent,
     ContactUsComponent,
     CartComponent,
     EventsComponent,

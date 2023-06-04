@@ -4,9 +4,9 @@
 </head>
 
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container-fluid">
-        <img src="../../assets/Images/logo.png" alt="Logo" style="width:60px;">
+        <img src="../../assets/Images/logo.png" alt="Logo" style="width:120px;">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,7 +22,7 @@
                     <a class="nav-link" routerLink="/contact-us">CONTACT US</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/login-dashboard">MY ACCOUNT</a>
+                    <a class="nav-link" routerLink="/my-account">MY ACCOUNT</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/login">SIGN IN</a>
@@ -34,13 +34,12 @@
                 <i class="bi-cart"></i>
             </a>
         </div>
-        <div class="ml-auto">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Search"
-                    aria-label="Search">
-                </form>
-                
-            </div>
-            <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-success btn-sm my-2 my-sm-0 mr-2" type="submit">Search</button>
+<div class="ml-auto">
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+</div>
+
     </div>
 </nav>

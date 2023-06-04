@@ -1,85 +1,63 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h2 class="text-center mb-4">Sign In</h2>
-      <form>
-        <div class="form-group">
-          <label for="inputEmail">Email address</label>
-          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
-            placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword">Password</label>
-          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-        </div>
-        <div class="form-check mb-3">
-          <input type="checkbox" class="form-check-input" id="rememberMe">
-          <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-      </form>
-      <div class="text-center">
-        <p>Not a member? </p>
-        <!-- Button to Open the Modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-          Register!
-        </button>
-
-        <!-- The Modal -->
-        <div class="modal" id="myModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Create Your Account</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body">
-                <div class="container">
-                  <div class="row justify-content-center">
-                    <div class="col-md-6">
-                      <h2 class="text-center mb-4">Register</h2>
-                      <form>
-                        <div class="form-group">
-                          <label for="inputName">Name</label>
-                          <input type="text" class="form-control" id="inputName" placeholder="Enter name">
-                        </div>
-                        <div class="form-group">
-                          <label for="inputEmail">Email address</label>
-                          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
-                            placeholder="Enter email">
-                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                            else.</small>
-                        </div>
-                        <div class="form-group">
-                          <label for="inputPassword">Password</label>
-                          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                          <label for="inputConfirmPassword">Confirm Password</label>
-                          <input type="password" class="form-control" id="inputConfirmPassword"
-                            placeholder="Confirm Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-              </div>
-
-            </div>
+<div class="mt-5" style="padding-top: 50px;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-3 pr-md-2">
+        <h2 class="text-center mb-4" style="color: #1C461B;">Sign In</h2>
+        <form>
+          <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" class="form-control  form-control-sm bg-light" id="inputEmail"
+              aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
-        </div>
+          <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control  form-control-sm bg-light" id="inputPassword"
+              placeholder="Password">
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+          </div>
+          <div class="d-flex">
+            <button type="submit" class="btn btn-primary flex-fill me-2 w-50" style="background-color: #1C461B;">Sign
+              In</button>
+            <button type="button" class="btn btn-secondary flex-fill me-2 w-50 d-flex justify-content-center"
+              style="background-color: #1C461B;">Forgot Password?</button>
 
+
+
+          </div>
+
+
+        </form>
+      </div>
+
+      <!-- Empty column for spacing -->
+      <div class="col-md-2"></div>
+
+      <div class="col-md-3 pl-md-2">
+        <h2 class="text-center mb-4" style="color: #1C461B;">Register</h2>
+
+        <form>
+          <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" class="form-control  form-control-sm bg-light" id="inputEmail"
+              aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control  form-control-sm bg-light" id="inputPassword"
+              placeholder="Password">
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="background-color: #1C461B;">Sign In</button>
+        </form>
       </div>
     </div>
   </div>
+  <div class="mt-5" style="padding-top: 81px;"></div>
