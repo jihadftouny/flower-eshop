@@ -1,16 +1,15 @@
 <div class="container-fluid">
-  <h1 class="display-3">Admin Panel</h1>
+  <div class="display-3 text-center">Admin Panel</div>
 
-  <div class="container">
-    <h1 class="h1">Products</h1>
+
+    <div class="display-5">Products</div>
     <form class="d-flex my-2">
       <input
         class="form-control me-2"
-        type="search"
-        placeholder="Search"
+        type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="searchProducts()" name="searchTerm"
         aria-label="Search"
       />
-      <button class="btn btn-outline-info" type="submit">Add</button>
+      <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
     <div class="table-responsive">
@@ -18,47 +17,61 @@
         <thead class="table">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Price</th>
+            <th scope="col">Currency</th>
             <th scope="col">Image</th>
+            <th scope="col"></th>
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+        <tbody *ngIf="searched">
+          <tr *ngFor="let product of filteredProducts">
+            <td>{{ product.id }}</td>
+            <td class="text-wrap">{{ product.title }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.currency }}</td>
             <td>
-              <button type="button" class="btn btn-danger">Delete</button>
+              <div class="product-image">
+              <img [src]="product.imagePath" [alt]="product.title">
+            </div>
+            </td>
+            <td>
+          <!--here-->    <button type="button" class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
+            </td>
+            <td>
+          <!--here-->    <a type="button" class="btn btn-warning" [routerLink]="['/edit', product.id]">Edit</a>
             </td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
+        </tbody>
+        <tbody *ngIf="!searched">
+          <tr *ngFor="let product of products">
+            <td>{{ product.id }}</td>
+            <td class="text-wrap">{{ product.title }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.currency }}</td>
             <td>
-              <button type="button" class="btn btn-danger">Delete</button>
+              <div class="product-image">
+              <img [src]="product.imagePath" [alt]="product.title">
+            </div>
             </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
             <td>
-              <button type="button" class="btn btn-danger">Delete</button>
+          <!--here-->    <button type="button" class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
+            </td>
+            <td>
+          <!--here-->    <a type="button" class="btn btn-warning" [routerLink]="['/edit', product.id]">Edit</a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
 
-  <div class="container">
-    <h1 class="h1">Events</h1>
+
+
+    <div class="display-5">Events</div>
     <form class="d-flex my-2">
       <input
         class="form-control me-2"
@@ -110,10 +123,10 @@
         </tbody>
       </table>
     </div>
-  </div>
 
-  <div class="container">
-    <h1 class="h1">Users</h1>
+
+
+    <div class="display-5">Users</div>
     <form class="d-flex my-2">
       <input
         class="form-control me-2"
@@ -155,9 +168,8 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="container">
-    <h1 class="h1">Orders</h1>
+
+    <div class="display-5">Orders</div>
     <form class="d-flex my-2">
       <input
         class="form-control me-2"
@@ -185,27 +197,38 @@
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
-            <td><button type="button" class="btn btn-success">Confirm</button></td>
-            <td><button type="button" class="btn btn-danger">Cancel</button></td>
+            <td>
+              <button type="button" class="btn btn-success">Confirm</button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger">Cancel</button>
+            </td>
           </tr>
           <tr>
             <th scope="row">2</th>
             <td>Jacob</td>
             <td>Thornton</td>
             <td>@fat</td>
-            <td><button type="button" class="btn btn-success">Confirm</button></td>
-            <td><button type="button" class="btn btn-danger">Cancel</button></td>
+            <td>
+              <button type="button" class="btn btn-success">Confirm</button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger">Cancel</button>
+            </td>
           </tr>
           <tr>
             <th scope="row">3</th>
             <td>Larry</td>
             <td>the Bird</td>
             <td>@twitter</td>
-            <td><button type="button" class="btn btn-success">Confirm</button></td>
-            <td><button type="button" class="btn btn-danger">Cancel</button></td>
+            <td>
+              <button type="button" class="btn btn-success">Confirm</button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger">Cancel</button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
 </div>

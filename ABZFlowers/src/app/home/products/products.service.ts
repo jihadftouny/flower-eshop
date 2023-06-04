@@ -5,39 +5,85 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { Product } from './product.model';
+import { environment } from 'environments/environment';
+
+const BACKEND_URL = environment.apiUrl + "/products/"
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
   private products: Product[] = []; //we dont want anyone accessing this variable from outside
-  private productsUpdated = new Subject<Product[]>(); //we had to use Subject because in the beggining we were pulling a empty array so nothign showed up
+  private productsUpdated = new Subject<{
+    products: Product[];
+    productCount: number;
+  }>(); //we had to use Subject because in the beggining we were pulling a empty array so nothign showed up
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getProducts() {
+  searchProducts(searchTerm: string) {
+    const queryParams = `?search=${searchTerm}`;
     this.http
-      .get<{ message: string; products: any }>(
-        'http://localhost:3000/api/products'
+      .get<{ message: string; products: any; maxProducts: number }>(
+        BACKEND_URL + 'search' + queryParams
+      )
+      .pipe(
+        map((productData) => {
+          return {
+            products: productData.products.map((product) => {
+              return {
+                id: product._id,
+                title: product.title,
+                content: product.content,
+                imagePath: product.imagePath,
+                quantity: product.quantity,
+                price: product.price,
+                currency: product.currency,
+                creator: product.creator
+              };
+            }),
+            maxProducts: productData.maxProducts,
+          };
+        })
+      )
+      .subscribe((transformedProductData) => {
+        this.products = transformedProductData.products;
+        this.productsUpdated.next({
+          products: [...this.products],
+          productCount: transformedProductData.maxProducts,
+        });
+      });
+  }
+  
+  getProducts(productsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`; //this is a template expression
+    this.http
+      .get<{ message: string; products: any; maxProducts: number }>(
+        BACKEND_URL+ queryParams
       ) //you can be more clear about the type
       .pipe(
         map((productData) => {
-          return productData.products.map((product) => {
-            return {
-              price: product.price,
-              quantity: product.quantity,
-              currency: product.currency,
-              itemName: product.itemName,
-              image: product.image,
-              title: product.title,
-              content: product.content,
-              id: product._id,
-              imagePath: product.imagePath,
-            };
-          });
+          return {
+            products: productData.products.map((product) => {
+              return {
+                id: product._id,
+                title: product.title,
+                content: product.content,
+                imagePath: product.imagePath,
+                quantity: product.quantity,
+                price: product.price,
+                currency: product.currency,
+                creator: product.creator
+              };
+            }),
+            maxProducts: productData.maxProducts,
+          };
         })
       ) //allows operators (?)
-      .subscribe((transformedProducts) => {
-        this.products = transformedProducts;
-        this.productsUpdated.next([...this.products]);
+      .subscribe((transformedProductData) => {
+        this.products = transformedProductData.products;
+        this.productsUpdated.next({
+          products: [...this.products],
+          productCount: transformedProductData.maxProducts,
+        });
       });
 
     //return [...this.products]; //Good Practice! This is a ts/new js feature that copies an array, not only its reference
@@ -49,54 +95,39 @@ export class ProductsService {
   getProduct(id: string) {
     return this.http.get<{
       _id: string;
-      image: string;
-      quantity: number;
-      currency: string;
-      price: number;
-      itemName: string;
       title: string;
       content: string;
       imagePath: string;
-    }>('http://localhost:3000/api/products/' + id);
+      quantity: string;
+      price: string;
+      currency: string;
+      creator: string;
+    }>(BACKEND_URL + id);
   }
 
   addProduct(
     title: string,
     content: string,
     image: File,
-    itemName: string,
     quantity: string,
     price: string,
     currency: string
   ) {
     const productData = new FormData(); //data format allows us to combine text values and blobs (files)_
-    productData.append('itemName', itemName);
-    productData.append('quantity', String(Number(quantity)));
-    productData.append('price', String(Number(price)));
-    productData.append('currency', currency);
     productData.append('title', title);
     productData.append('content', content);
     productData.append('image', image, title);
+    productData.append('quantity', quantity);
+    productData.append('price', price);
+    productData.append('currency', currency);
     this.http
       .post<{ message: string; product: Product }>(
-        'http://localhost:3000/api/products',
+        BACKEND_URL,
         productData
       )
+      //redirection
       .subscribe((responseData) => {
-        const product: Product = {
-          id: responseData.product.id,
-          title: title,
-          content: content,
-          quantity: Number(quantity),
-          price: Number(price),
-          currency: currency,
-          itemName: itemName,
-          image: responseData.product.image,
-          imagePath: responseData.product.imagePath,
-        };
-        this.products.push(product);
-        this.productsUpdated.next([...this.products]);
-        this.router.navigate(['/']);
+        this.router.navigate(['/admin-panel']);
       });
     // added to subscribe method
     // this.products.push(product);
@@ -108,66 +139,42 @@ export class ProductsService {
     title: string,
     content: string,
     image: File | string,
-    itemName: string,
     quantity: string,
     price: string,
     currency: string
   ) {
     let productData: Product | FormData;
+
     if (typeof image === 'object') {
       productData = new FormData();
-      productData.append('itemName', itemName);
-      productData.append('quantity', String(Number(quantity)));
-      productData.append('price', String(Number(price)));
-      productData.append('currency', currency);
       productData.append('id', id);
       productData.append('title', title);
       productData.append('content', content);
       productData.append('image', image, title);
+      productData.append('quantity', quantity);
+      productData.append('price', price);
+      productData.append('currency', currency);
+      console.log('error1');
     } else {
-      const productData = {
+      productData = {
         id: id,
         title: title,
         content: content,
-        imagePath: image,
-        price: price,
+        imagePath: image as string,
         quantity: quantity,
+        price: price,
         currency: currency,
-        image: image
+        creator: null // we set this as null to remove capability of user to manipulate it
       };
     }
+    //redirection
     this.http
-      .put('http://localhost:3000/api/products/' + id, productData)
+      .put(BACKEND_URL + id, productData)
       .subscribe((response) => {
-        const updatedProducts = [...this.products];
-        const oldProductIndex = updatedProducts.findIndex((p) => p.id === id);
-        const product: Product = {
-          id: id,
-          price: Number(price),
-          quantity: Number(quantity),
-          currency: currency,
-          itemName: itemName,
-          image: '',
-          title: title,
-          content: content,
-          imagePath: '',
-        };
-        updatedProducts[oldProductIndex] = product;
-        this.products = updatedProducts;
-        this.productsUpdated.next([...this.products]);
         this.router.navigate(['/']);
       });
   }
   deleteProduct(productId: string) {
-    this.http
-      .delete('http://localhost:3000/api/products/' + productId)
-      .subscribe(() => {
-        const updatedProducts = this.products.filter(
-          (product) => product.id !== productId
-        );
-        this.products = updatedProducts;
-        this.productsUpdated.next([...this.products]);
-        //you could just call getProducts, where the null id will be updated, but you'll do something else
-      });
+    return this.http.delete(BACKEND_URL + productId);
   }
 }

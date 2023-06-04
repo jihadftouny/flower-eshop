@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <!-- #postForm is a reference, if no values assigned (#postForm without =""), it gives access to html element. this gives us acces to this form object angular created (with assigned ngForm)-->
+  <form [formGroup]="form" (submit)="onSaveEvent()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="name"
+        placeholder="Event Title"
+      />
+      <mat-error *ngIf="form.get('name').invalid"
+        >Please enter a event name.</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="index"
+        placeholder="Event Index"
+      />
+      <mat-error *ngIf="form.get('index').invalid"
+        >Please enter a event index.</mat-error
+      >
+    </mat-form-field>
+
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">
+        Pick Image
+      </button>
+      <input type="file" #filePicker (change)="onImagePicked($event)" />
+    </div>
+    <div
+      class="image-preview"
+      *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+    >
+      <img [src]="imagePreview" [alt]="form.value.name" />
+    </div>
+
+    <button mat-raised-button color="accent" type="submit">Save Event</button>
+  </form>
+</mat-card>
