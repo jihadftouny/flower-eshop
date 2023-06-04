@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+<<<<<<< HEAD
+import { LoginComponent } from './login/login.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+=======
 import { LoginComponent } from './auth/login/login.component';
 import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
+>>>>>>> a952398c9a83be8b75490eab90d5eda25619678d
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { CartComponent } from './cart/cart.component';
 import { EventsComponent } from './events/events.component';
@@ -36,7 +41,12 @@ import { EventsModule } from './events/events.module';
     HomeComponent,
     FooterComponent,
     HeaderComponent,
+<<<<<<< HEAD
+    LoginComponent,
+    MyAccountComponent,
+=======
     LoginDashboardComponent,
+>>>>>>> a952398c9a83be8b75490eab90d5eda25619678d
     ContactUsComponent,
     CartComponent,
     ErrorComponent,
