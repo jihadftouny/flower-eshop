@@ -12,4 +12,10 @@ router.post("/signup", UserController.createUser);
 
 router.post("/login", UserController.userLogin);
 
+router.get("", UserController.getUsers);
+
+router.get("/:id", UserController.getUser);
+
+router.delete("/:id", UserController.deleteUser);
+
 module.exports = router;

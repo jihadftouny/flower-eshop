@@ -6,11 +6,13 @@ import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 import { AngularMaterialModule } from "../angular-material.module";
 import { AuthRoutingModule } from "./auth-routing.module";
+import { MyAccountComponent } from "../my-account/my-account.component";
 
 @NgModule({
   declarations: [
     LoginComponent,
     SignupComponent,
+    MyAccountComponent
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@
     <form class="d-flex my-2">
       <input
         class="form-control me-2"
-        type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="searchProducts()" name="searchTerm"
+        type="text" placeholder="Search" [(ngModel)]="searchTermProducts" (input)="searchProducts()" name="searchTerm"
         aria-label="Search"
       />
       <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
@@ -127,47 +127,46 @@
 
 
     <div class="display-5">Users</div>
-    <form class="d-flex my-2">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="table">
-          <tr>
-            <th scope="col">Email</th>
-            <th scope="col">Name</th>
-            <th scope="col">Current Orders</th>
-            <th scope="col">Completed Orders</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <form class="d-flex my-2">
+    <input
+      class="form-control me-2"
+      type="text"
+      placeholder="Search"
+      [(ngModel)]="searchTermUsers"
+      (input)="searchUsers()"
+      name="searchTerm"
+      aria-label="Search"
+    />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="table">
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Pasword</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Phone Number</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="searched">
+        <tr *ngFor="let user of filteredUsers">
+          <td>{{ user.email }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.phoneNumber }}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!searched">
+        <tr *ngFor="let user of users">
+          <td>{{ user.email }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.phoneNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
     <div class="display-5">Orders</div>
     <form class="d-flex my-2">

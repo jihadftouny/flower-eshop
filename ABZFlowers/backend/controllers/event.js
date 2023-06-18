@@ -131,3 +131,7 @@ exports.deleteEvent = (req, res, next) => {
     });
 
 };
+
+// lack of human touch,
+//limited knowledge regarding the capabilities of the, very crazy questions, hallucinates with very generic questions
+//language barrier

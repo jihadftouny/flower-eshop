@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Product } from './product.model';
 import { environment } from 'environments/environment';
 
-const BACKEND_URL = environment.apiUrl + "/products/"
+const BACKEND_URL = environment.apiUrl + '/products/';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
@@ -19,6 +19,7 @@ export class ProductsService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  // DEPRECATED
   searchProducts(searchTerm: string) {
     const queryParams = `?search=${searchTerm}`;
     this.http
@@ -37,7 +38,7 @@ export class ProductsService {
                 quantity: product.quantity,
                 price: product.price,
                 currency: product.currency,
-                creator: product.creator
+                creator: product.creator,
               };
             }),
             maxProducts: productData.maxProducts,
@@ -52,12 +53,13 @@ export class ProductsService {
         });
       });
   }
-  
+  // DEPRECATED
+
   getProducts(productsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`; //this is a template expression
     this.http
       .get<{ message: string; products: any; maxProducts: number }>(
-        BACKEND_URL+ queryParams
+        BACKEND_URL + queryParams
       ) //you can be more clear about the type
       .pipe(
         map((productData) => {
@@ -71,7 +73,7 @@ export class ProductsService {
                 quantity: product.quantity,
                 price: product.price,
                 currency: product.currency,
-                creator: product.creator
+                creator: product.creator,
               };
             }),
             maxProducts: productData.maxProducts,
@@ -88,6 +90,7 @@ export class ProductsService {
 
     //return [...this.products]; //Good Practice! This is a ts/new js feature that copies an array, not only its reference
   }
+
   getProductUpdateListener() {
     return this.productsUpdated.asObservable(); //returns an object that can listen but not emit
   }
@@ -121,10 +124,7 @@ export class ProductsService {
     productData.append('price', price);
     productData.append('currency', currency);
     this.http
-      .post<{ message: string; product: Product }>(
-        BACKEND_URL,
-        productData
-      )
+      .post<{ message: string; product: Product }>(BACKEND_URL, productData)
       //redirection
       .subscribe((responseData) => {
         this.router.navigate(['/admin-panel']);
@@ -164,16 +164,15 @@ export class ProductsService {
         quantity: quantity,
         price: price,
         currency: currency,
-        creator: null // we set this as null to remove capability of user to manipulate it
+        creator: null, // we set this as null to remove capability of user to manipulate it
       };
     }
     //redirection
-    this.http
-      .put(BACKEND_URL + id, productData)
-      .subscribe((response) => {
-        this.router.navigate(['/']);
-      });
+    this.http.put(BACKEND_URL + id, productData).subscribe((response) => {
+      this.router.navigate(['/']);
+    });
   }
+
   deleteProduct(productId: string) {
     return this.http.delete(BACKEND_URL + productId);
   }

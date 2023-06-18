@@ -26,8 +26,7 @@ export class HomeComponent {
   constructor(
     public productsService: ProductsService,
     private authService: AuthService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -55,7 +54,18 @@ export class HomeComponent {
   ngOnDestroy() {
     this.productsSub.unsubscribe();
     this.authStatusSub.unsubscribe();
+    //need to add a second authStatusSub here
   }
+
+  //modify here
+  // onSaveEvent() {
+  //   this.isLoading = true;
+  //   this.eventtsService.addEvent(
+  //     this.form.value.name,
+  //     this.form.value.index,
+  //     this.form.value.image
+  //   );
+  // }
 
   onDelete(productId: string) {
     this.isLoading = true;
@@ -69,5 +79,17 @@ export class HomeComponent {
     this.currentPage = pageData.pageIndex + 1;
     this.productsPerPage = pageData.pageSize;
     this.productsService.getProducts(this.productsPerPage, this.currentPage);
+  }
+
+  addToCart(product: Product) {
+    const list = []
+    list.push(product)
+    if (localStorage.getItem("abz-flowers-cart") !== null) {
+      const productList = JSON.parse(localStorage.getItem("abz-flowers-cart")) //isso aqui transforma string pra array
+      productList.push(product)
+      localStorage.setItem("abz-flowers-cart", JSON.stringify(productList))
+    } else {
+      localStorage.setItem("abz-flowers-cart", JSON.stringify(list))
+    }
   }
 }
