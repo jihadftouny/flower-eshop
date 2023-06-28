@@ -1,0 +1,8 @@
+.carousel-fittings {
+  object-fit: cover;
+  height: 50vh;
+}
+
+.font-lucidasans {
+  font-family: "Lucida Sans", Arial, sans-serif;
+}

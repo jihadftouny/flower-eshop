@@ -4,15 +4,10 @@ exports.createEvent = (req, res, next) => {
 
   const url = req.protocol + '://' + req.get("host");
   //you're calling this from the models folder event.js, you gave its name as'Event'
-  const images = [];
-  images.push({
-    imagePath: url + "/images/events/" + req.file.filename,
-    index: req.body.index
-  });
 
   const event = new Event({
     name: req.body.name,
-    images: images,
+    imagePath: url + "/images/" + req.file.filename,
     creator: req.userData.userId
   }); //this object is being managed by mongoose, you can save the objects created here directly on monngoDB
   event.save().then(createdEvent => {
@@ -40,32 +35,25 @@ exports.updateEvent = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     imagePath = url + "/images/events/" + req.file.filename;
   }
-
-  Event.findOne({ _id: req.params.id, creator: req.userData.userId })
-    .then(event => {
-      if (event) {
-        const images = event.images;
-        images[0] = {
-          imagePath: imagePath,
-          index: req.body.index
-        };
-        event.name = req.body.name;
-        event.images = images;
-
-        event.save()
-          .then(updatedEvent => {
-            res.status(200).json({ message: "Update successful!", event: updatedEvent });
-          })
-          .catch(error => {
-            res.status(500).json({ message: "Couldn't update event" });
-          });
-      } else {
-        res.status(401).json({ message: "You are not authorized to update this event!" });
-      }
+  const event = new Event({
+    _id: req.body.id,
+    imagePath: imagePath,
+    name: req.body.name
+  })
+  Event.updateOne({ _id: req.params.id, creator: req.userData.userId }, event).then(result => {
+    console.log(result);
+    if (result.modifiedCount > 0){
+      res.status(200).json({ message: "Update successful!" });
+    }
+    else {
+     res.status(401).json({ message: "You are not authorized!" });
+    }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Couldn't update event"
     })
-    .catch(error => {
-      res.status(500).json({ message: "Fetching event failed!" });
-    });
+  });
 };
 
 exports.getEvents = (req, res, next) => {
@@ -117,21 +105,17 @@ exports.getEvent = (req, res, next) => {
 
 exports.deleteEvent = (req, res, next) => {
   Event.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
-    if (result.modifiedCount > 0) {
+    if (result.modifiedCount > 0){
       res.status(200).json({ message: "Deletion successful!" });
     }
     else {
       res.status(401).json({ message: "You are not authorized!" });
     }
   })
-    .catch(error => {
-      res.status(500).json({
-        message: "Deleting event failed!"
-      })
-    });
+  .catch(error => {
+    res.status(500).json({
+      message: "Deleting event failed!"
+    })
+  });
 
 };
-
-// lack of human touch,
-//limited knowledge regarding the capabilities of the, very crazy questions, hallucinates with very generic questions
-//language barrier

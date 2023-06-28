@@ -39,9 +39,6 @@ export class EventCreateComponent implements OnInit, OnDestroy {
       name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)],
       }),
-      index: new FormControl(null, {
-        validators: [Validators.required],
-      }),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType],
@@ -59,13 +56,11 @@ export class EventCreateComponent implements OnInit, OnDestroy {
             this.eventt = {
               id: eventtData._id,
               name: eventtData.name,
-              index: eventtData.index,
               imagePath: eventtData.imagePath,
               creator: eventtData.creator,
             };
             this.form.setValue({
               name: this.eventt.name,
-              index: this.eventt.index,
               image: this.eventt.imagePath,
             });
           });
@@ -96,14 +91,12 @@ export class EventCreateComponent implements OnInit, OnDestroy {
     if (this.mode === 'create') {
       this.eventtsService.addEvent(
         this.form.value.name,
-        this.form.value.index,
-        this.form.value.image,
+        this.form.value.image
       );
     } else {
       this.eventtsService.updateEvent(
         this.eventtId,
         this.form.value.name,
-        this.form.value.index,
         this.form.value.image,
       );
     }

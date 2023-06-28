@@ -1,8 +1,9 @@
 <div class="mt-5" style="padding-top: 50px">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-3 pr-md-2">
-        <h2 class="text-center mb-4" style="color: #1c461b">Sign In</h2>
+    <div class="row justify-content-center pb-5">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4" style="color: #1c461b">Authorized Access Only</h2>
+        <h2 class="text-center mb-4" style="color: #1c461b">If you are not authorized leave immediately</h2>
         <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
           <div class="form-group">
             <label for="inputEmail">Email address</label>
@@ -17,9 +18,7 @@
               required
               email
             />
-            <small id="emailHelp" class="form-text text-muted"
-              ></small
-            >
+            <small id="emailHelp" class="form-text text-muted"></small>
           </div>
           <div class="form-group">
             <label for="inputPassword">Password</label>
@@ -32,10 +31,6 @@
               ngModel
               required
             />
-          </div>
-          <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="rememberMe" />
-            <label class="form-check-label" for="rememberMe">Remember me</label>
           </div>
           <div class="d-flex">
             <button
@@ -45,96 +40,7 @@
             >
               Sign In
             </button>
-            <button
-              type="button"
-              class="btn btn-secondary flex-fill me-2 w-50 d-flex justify-content-center"
-              style="background-color: #1c461b"
-            >
-              Forgot Password?
-            </button>
           </div>
-        </form>
-      </div>
-
-      <!-- Empty column for spacing -->
-      <div class="col-md-2"></div>
-
-      <div class="col-md-3 pl-md-2">
-        <h2 class="text-center mb-4" style="color: #1c461b">Register</h2>
-
-        <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
-          <div class="form-group">
-            <label for="inputFullName">Full Name</label>
-            <input
-              type="text"
-              class="form-control form-control-sm bg-light"
-              id="inputFullName"
-              placeholder="Enter full name"
-              name="fullName"
-              ngModel
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="inputEmail">Email address</label>
-            <input
-              type="email"
-              class="form-control form-control-sm bg-light"
-              id="inputEmail"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-              name="email"
-              ngModel
-              required
-              email
-            />
-            <small id="emailHelp" class="form-text text-muted"
-              >Your data is safe with us, privacy is our main concern.</small
-            >
-          </div>
-          <div class="form-group">
-            <label for="inputPhoneNumber">Phone Number</label>
-            <input
-              type="text"
-              class="form-control form-control-sm bg-light"
-              id="inputPhoneNumber"
-              placeholder="Enter phone number"
-              name="phoneNumber"
-              ngModel
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="inputPassword">Password</label>
-            <input
-              type="password"
-              class="form-control form-control-sm bg-light"
-              id="inputPassword"
-              placeholder="Password"
-              name="password"
-              ngModel
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="inputConfirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              class="form-control form-control-sm bg-light"
-              id="inputConfirmPassword"
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              ngModel
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn btn-primary btn-block"
-            style="background-color: #1c461b"
-          >
-            Sign Up
-          </button>
         </form>
       </div>
     </div>

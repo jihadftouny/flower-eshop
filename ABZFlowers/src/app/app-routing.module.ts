@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   { path: 'contact-us', component: ContactUsComponent },
-  { path: 'admin-panel', component: AdminComponent },
+  { path: 'admin-panel', component: AdminComponent, canActivate: [AuthGuard]  },
 
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },

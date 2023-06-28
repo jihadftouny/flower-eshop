@@ -1,9 +1,22 @@
 .background {
-    background-color: #fff;
-  }
-  .card-bg{
-    background-color: #FFE4E8;
-  }
+  background-color: #fff;
+}
+.card-bg {
+  background-color: #fff0e6;
+}
 
-  /* fac0c9
+.btn-addcart{
+  background-color: #1C461B;
+}
+
+.carousel-fittings {
+  object-fit: cover;
+  height: 50vh;
+}
+
+.font-lucidasans {
+  font-family: "Lucida Sans", Arial, sans-serif;
+}
+
+/* fac0c9
   FFE4E8 */

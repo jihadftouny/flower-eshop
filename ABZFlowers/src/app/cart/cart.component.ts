@@ -22,7 +22,7 @@ export class CartComponent {
     this.phoneNumber = localStorage.getItem('phoneNumber');
   }
 
-  confirmOder() {
+  confirmOrder() {
     //this will store the numbers to a new document that will be displayed on, the admin panel
     //then clear the cart
     localStorage.removeItem("abz-flowers-cart");

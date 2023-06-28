@@ -6,37 +6,31 @@
   />
 </head>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <div class="container-fluid">
-    <img src="../../assets/Images/logo.png" alt="Logo" style="width: 60px" />
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#collapsibleNavbar"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-xl bg-light navbar-light sticky-top">
+  <div class="container-fluid ">
+    <a class="navbar-brand" href="#">
+      <img src="../../assets/Images/logo.png" class="ps-0"alt="Logo" style="height: 8vh" />
+    </a>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav fs-5">
         <li class="nav-item">
           <a class="nav-link" routerLink="/home">SHOP</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/events">WEDDINGS AND EVENTS</a>
+          <a class="nav-link" routerLink="/events">GALLERY</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/list-product">CONTACT US</a>
+          <a class="nav-link" routerLink="/contact-us">CONTACT US</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/create-product">ABOUT US</a>
-        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/about-us">ABOUT US</a>
+        </li> -->
         <li class="nav-item">
           <a
             *ngIf="userIsAuthenticated"
             class="nav-link"
-            routerLink="/login-dashboard"
-            >MY ACCOUNT</a
+            routerLink="/admin-panel"
+            >ADMIN</a
           >
         </li>
         <li *ngIf="!userIsAuthenticated" class="nav-item">
@@ -48,21 +42,31 @@
       </ul>
 
       <a href="/cart" class="btn btn-outline-light btn-sm ml-2">
-        <i class="bi-cart"></i>
+        <i class="bi-cart" style="color: black"></i>
       </a>
+
+      <div class="ml-auto">
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control form-control-sm mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+        </form>
+      </div>
+      <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">
+        Search
+      </button>
     </div>
-    <div class="ml-auto">
-      <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control form-control-sm mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-      </form>
-    </div>
-    <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">
-      Search
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapsibleNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
     </button>
   </div>
 </nav>

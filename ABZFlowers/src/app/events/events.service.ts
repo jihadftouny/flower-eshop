@@ -32,7 +32,6 @@ export class EventsService {
               return {
                 id: event._id,
                 name: event.name,
-                index: event.index,
                 imagePath: event.imagePath,
                 creator: event.creator
 
@@ -60,7 +59,6 @@ export class EventsService {
     return this.http.get<{
       _id: string;
       name: string;
-      index: string;
       imagePath: string;
       creator: string;
     }>(BACKEND_URL + id);
@@ -68,12 +66,10 @@ export class EventsService {
 
   addEvent(
     name: string,
-    index: string,
     image: File,
   ) {
     const eventData = new FormData(); //data format allows us to combine text values and blobs (files)_
     eventData.append('name', name);
-    eventData.append('index', index);
     eventData.append('image', image, name);
     this.http
       .post<{ message: string; event: Eventt }>(
@@ -91,7 +87,6 @@ export class EventsService {
   updateEvent(
     id: string,
     name: string,
-    index: string,
     image: File | string,
   ) {
     let eventData: Eventt | FormData;
@@ -100,14 +95,12 @@ export class EventsService {
       eventData = new FormData();
       eventData.append('id', id);
       eventData.append('name', name);
-      eventData.append('index', index);
       eventData.append('image', image, name);
       console.log('error1');
     } else {
       eventData = {
         id: id,
         name: name,
-        index: index,
         imagePath: image as string,
         creator: null // we set this as null to remove capability of user to manipulate it
       };

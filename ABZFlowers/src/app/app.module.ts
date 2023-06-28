@@ -40,7 +40,6 @@ import { EventsModule } from './events/events.module';
     ContactUsComponent,
     CartComponent,
     ErrorComponent,
-
   ],
   imports: [
     BrowserModule,
