@@ -4,6 +4,7 @@ import { ProductsService } from './products/products.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent {
 
   constructor(
     public productsService: ProductsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -82,14 +84,18 @@ export class HomeComponent {
   }
 
   addToCart(product: Product) {
-    const list = []
-    list.push(product)
-    if (localStorage.getItem("abz-flowers-cart") !== null) {
-      const productList = JSON.parse(localStorage.getItem("abz-flowers-cart")) //isso aqui transforma string pra array
-      productList.push(product)
-      localStorage.setItem("abz-flowers-cart", JSON.stringify(productList))
+    const list = [];
+    list.push(product);
+    if (localStorage.getItem('abz-flowers-cart') !== null) {
+      const productList = JSON.parse(localStorage.getItem('abz-flowers-cart')); //isso aqui transforma string pra array
+      productList.push(product);
+      localStorage.setItem('abz-flowers-cart', JSON.stringify(productList));
     } else {
-      localStorage.setItem("abz-flowers-cart", JSON.stringify(list))
+      localStorage.setItem('abz-flowers-cart', JSON.stringify(list));
     }
+    // Display the pop-up message
+    this.snackBar.open('Product added to cart successfully!', 'Dismiss', {
+      duration: 2000, // Duration in milliseconds
+    });
   }
 }

@@ -20,6 +20,7 @@ import { ProductCreateComponent } from './home/products/product-create/product-c
 import { ProductListComponent } from './home/products/product-list/product-list.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth-interceptor';
@@ -49,7 +50,8 @@ import { EventsModule } from './events/events.module';
     AngularMaterialModule,
     ProductsModule,
     AuthModule,
-    EventsModule
+    EventsModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
