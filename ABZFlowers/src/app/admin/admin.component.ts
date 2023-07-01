@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthData } from '../auth/auth-data.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { EventsService } from '../events/events.service';
+import { Eventt } from '../events/event.model';
 
 @Component({
   selector: 'app-admin',
@@ -25,28 +27,36 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   users: AuthData[] = [];
   products: Product[] = [];
+  events: Eventt[] = [];
   isLoading = false;
   totalPosts = 0;
   totalUsers = 0;
+  totalEvents = 0;
   productsPerPage = 10;
   usersPerPage = 10;
+  eventsPerPage = 10;
   currentPage = 1;
   pageSizeOptions = [10, 25, 50];
   userIsAuthenticated = false;
   userId: string;
-  userId2: string;
+  userIdUsers: string;
+  userIdEvents: string;
   private authStatusSub: Subscription;
-  private authStatusSub2: Subscription;
+  private authStatusSubUsers: Subscription;
+  private authStatusSubEvents: Subscription;
   private userSub: Subscription;
-  private productsSub: Subscription; //will avoid memory leaks when this component is not part of the display (kills the data)
+  private productsSub: Subscription;
+  private eventsSub: Subscription; //will avoid memory leaks when this component is not part of the display (kills the data)
   // productsService: ProductsService; the public keyword in the constructor automatically creates this and stores values on it
 
   modalImage = '';
 
   constructor(
     public productsService: ProductsService,
+    public eventsService: EventsService,
     private authService: AuthService,
-    private authService2: AuthService,
+    private authServiceUsers: AuthService,
+    private authServiceEvents: AuthService
   ) {
     //this.productsService = productsService; the public keyword in the constructor automatically creates this and stores values on it
   }
@@ -72,23 +82,41 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.userId = this.authService.getUserId();
       });
     // users //
-    this.authService2.getUsers(this.usersPerPage, this.currentPage);
-    this.userId2 = this.authService2.getUserId();
-    this.userSub = this.authService2
+    this.authServiceUsers.getUsers(this.usersPerPage, this.currentPage);
+    this.userIdUsers = this.authServiceUsers.getUserId();
+    this.userSub = this.authServiceUsers
       .getUserUpdateListener()
-      .subscribe(
-        (authData: { users: AuthData[]; userCount: number }) => {
-          this.isLoading = false;
-          this.totalUsers = authData.userCount;
-          this.users = authData.users;
-        }
-      );
-    this.userIsAuthenticated = this.authService2.getIsAuth();
-    this.authStatusSub2 = this.authService2
+      .subscribe((authData: { users: AuthData[]; userCount: number }) => {
+        this.isLoading = false;
+        this.totalUsers = authData.userCount;
+        this.users = authData.users;
+      });
+    this.userIsAuthenticated = this.authServiceUsers.getIsAuth();
+    this.authStatusSubUsers = this.authServiceUsers
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
-        this.userId2 = this.authService2.getUserId();
+        this.userIdUsers = this.authServiceUsers.getUserId();
+      });
+
+    //events
+    this.eventsService.getEvents(this.eventsPerPage, this.currentPage);
+    this.userIdEvents = this.authServiceEvents.getUserId();
+    this.eventsSub = this.eventsService
+      .getEventUpdateListener()
+      .subscribe(
+        (eventData: { events: Eventt[]; eventCount: number }) => {
+          this.isLoading = false;
+          this.totalEvents = eventData.eventCount;
+          this.events = eventData.events;
+        }
+      );
+    this.userIsAuthenticated = this.authServiceEvents.getIsAuth();
+    this.authStatusSubEvents = this.authServiceEvents
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userIdEvents = this.authServiceEvents.getUserId();
       });
   }
 
@@ -113,7 +141,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
     this.productsSub.unsubscribe();
     this.authStatusSub.unsubscribe();
-    this.authStatusSub2.unsubscribe();
+    this.authStatusSubUsers.unsubscribe();
   }
 
   onDeleteUser(userId: string) {

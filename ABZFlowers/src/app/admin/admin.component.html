@@ -1,134 +1,202 @@
 <div class="container-fluid">
   <div class="display-3 text-center">Admin Panel</div>
-  <p>
-    Authorized access only. If you are not authorized, leave immediately
-  </p>
+  <p>Authorized access only. If you are not authorized, leave immediately</p>
 
-    <div class="display-5">Products</div>
-    <form class="d-flex my-2">
-      <input
-        class="form-control me-2"
-        type="text" placeholder="Search" [(ngModel)]="searchTermProducts" (input)="searchProducts()" name="searchTerm"
-        aria-label="Search"
-      />
-      <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="table">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Currency</th>
-            <th scope="col">Image</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody *ngIf="searched">
-          <tr *ngFor="let product of filteredProducts">
-            <td>{{ product.id }}</td>
-            <td class="text-wrap">{{ product.title }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.currency }}</td>
-            <td>
-              <div class="product-image">
-              <img [src]="product.imagePath" [alt]="product.title">
+  <div class="display-5">Products</div>
+  <form class="d-flex my-2">
+    <input
+      class="form-control me-2"
+      type="text"
+      placeholder="Search"
+      [(ngModel)]="searchTermProducts"
+      (input)="searchProducts()"
+      name="searchTerm"
+      aria-label="Search"
+    />
+    <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="table">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Currency</th>
+          <th scope="col">Image</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="searched">
+        <tr *ngFor="let product of filteredProducts">
+          <td>{{ product.id }}</td>
+          <td class="text-wrap">{{ product.title }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.currency }}</td>
+          <td>
+            <div class="product-image">
+              <img [src]="product.imagePath" [alt]="product.title" />
             </div>
-            </td>
-            <td>
-          <!--here-->    <button type="button" class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
-            </td>
-            <td>
-          <!--here-->    <a type="button" class="btn btn-warning" [routerLink]="['/edit', product.id]">Edit</a>
-            </td>
-          </tr>
-        </tbody>
-        <tbody *ngIf="!searched">
-          <tr *ngFor="let product of products">
-            <td>{{ product.id }}</td>
-            <td class="text-wrap">{{ product.title }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.currency }}</td>
-            <td>
-              <div class="product-image">
-              <img [src]="product.imagePath" [alt]="product.title">
+          </td>
+          <td>
+            <!--here-->
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onDelete(product.id)"
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <!--here-->
+            <a
+              type="button"
+              class="btn btn-warning"
+              [routerLink]="['/edit', product.id]"
+              >Edit</a
+            >
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!searched">
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td class="text-wrap">{{ product.title }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.currency }}</td>
+          <td>
+            <div class="product-image">
+              <img [src]="product.imagePath" [alt]="product.title" />
             </div>
-            </td>
-            <td>
-          <!--here-->    <button type="button" class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
-            </td>
-            <td>
-          <!--here-->    <a type="button" class="btn btn-warning" [routerLink]="['/edit', product.id]">Edit</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+          </td>
+          <td>
+            <!--here-->
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onDelete(product.id)"
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <!--here-->
+            <a
+              type="button"
+              class="btn btn-warning"
+              [routerLink]="['/edit', product.id]"
+              >Edit</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <div class="display-5">Events</div>
+  <form class="d-flex my-2">
+    <input
+      class="form-control me-2"
+      type="text"
+      placeholder="Search"
+      [(ngModel)]="searchTermProducts"
+      (input)="searchProducts()"
+      name="searchTerm"
+      aria-label="Search"
+    />
+    <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="table">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Currency</th>
+          <th scope="col">Image</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="searched">
+        <tr *ngFor="let product of filteredProducts">
+          <td>{{ product.id }}</td>
+          <td class="text-wrap">{{ product.title }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.currency }}</td>
+          <td>
+            <div class="product-image">
+              <img [src]="product.imagePath" [alt]="product.title" />
+            </div>
+          </td>
+          <td>
+            <!--here-->
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onDelete(product.id)"
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <!--here-->
+            <a
+              type="button"
+              class="btn btn-warning"
+              [routerLink]="['/edit', product.id]"
+              >Edit</a
+            >
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!searched">
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td class="text-wrap">{{ product.title }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.currency }}</td>
+          <td>
+            <div class="product-image">
+              <img [src]="product.imagePath" [alt]="product.title" />
+            </div>
+          </td>
+          <td>
+            <!--here-->
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onDelete(product.id)"
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <!--here-->
+            <a
+              type="button"
+              class="btn btn-warning"
+              [routerLink]="['/edit', product.id]"
+              >Edit</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-
-    <div class="display-5">Events</div>
-    <form class="d-flex my-2">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="table">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Image</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button type="button" class="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>
-              <button type="button" class="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>
-              <button type="button" class="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-
-
-    <div class="display-5">Users</div>
+  <div class="display-5">Users</div>
   <form class="d-flex my-2">
     <input
       class="form-control me-2"
@@ -170,66 +238,66 @@
     </table>
   </div>
 
-    <div class="display-5">Orders</div>
-    <form class="d-flex my-2">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="table">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">User</th>
-            <th scope="col">Products</th>
-            <th scope="col">Status</th>
-            <th>Confirm Order</th>
-            <th>Cancel Order</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button type="button" class="btn btn-success">Confirm</button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger">Cancel</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>
-              <button type="button" class="btn btn-success">Confirm</button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger">Cancel</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>
-              <button type="button" class="btn btn-success">Confirm</button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger">Cancel</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="display-5">Orders</div>
+  <form class="d-flex my-2">
+    <input
+      class="form-control me-2"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="table">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">User</th>
+          <th scope="col">Products</th>
+          <th scope="col">Status</th>
+          <th>Confirm Order</th>
+          <th>Cancel Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td>
+            <button type="button" class="btn btn-success">Confirm</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger">Cancel</button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+          <td>
+            <button type="button" class="btn btn-success">Confirm</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger">Cancel</button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+          <td>
+            <button type="button" class="btn btn-success">Confirm</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger">Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
