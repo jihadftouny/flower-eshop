@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Eventt } from './event.model';
 import { environment } from 'environments/environment';
 
-const BACKEND_URL = environment.apiUrl + "/events/"
+const BACKEND_URL = environment.apiUrl + '/events/';
 
 @Injectable({ providedIn: 'root' })
 export class EventsService {
@@ -23,7 +23,7 @@ export class EventsService {
     const queryParams = `?pagesize=${eventsPerPage}&page=${currentPage}`; //this is a template expression
     this.http
       .get<{ message: string; events: any; maxEvents: number }>(
-        BACKEND_URL+ queryParams
+        BACKEND_URL + queryParams
       ) //you can be more clear about the type
       .pipe(
         map((eventData) => {
@@ -33,8 +33,7 @@ export class EventsService {
                 id: event._id,
                 name: event.name,
                 imagePath: event.imagePath,
-                creator: event.creator
-
+                creator: event.creator,
               };
             }),
             maxEvents: eventData.maxEvents,
@@ -64,31 +63,22 @@ export class EventsService {
     }>(BACKEND_URL + id);
   }
 
-  addEvent(
-    name: string,
-    image: File,
-  ) {
+  addEvent(name: string, image: File) {
     const eventData = new FormData(); //data format allows us to combine text values and blobs (files)_
     eventData.append('name', name);
     eventData.append('image', image, name);
     this.http
-      .post<{ message: string; event: Eventt }>(
-        BACKEND_URL,
-        eventData
-      )
+      .post<{ message: string; event: Eventt }>(BACKEND_URL, eventData)
+      //redirection
       .subscribe((responseData) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/admin-panel']);
       });
     // added to subscribe method
     // this.events.push(event);
     // this.eventsUpdated.next([...this.events]);
   }
 
-  updateEvent(
-    id: string,
-    name: string,
-    image: File | string,
-  ) {
+  updateEvent(id: string, name: string, image: File | string) {
     let eventData: Eventt | FormData;
 
     if (typeof image === 'object') {
@@ -96,21 +86,19 @@ export class EventsService {
       eventData.append('id', id);
       eventData.append('name', name);
       eventData.append('image', image, name);
-      console.log('error1');
     } else {
       eventData = {
         id: id,
         name: name,
         imagePath: image as string,
-        creator: null // we set this as null to remove capability of user to manipulate it
+        creator: null, // we set this as null to remove capability of user to manipulate it
       };
     }
-    this.http
-      .put(BACKEND_URL + id, eventData)
-      .subscribe((response) => {
-        this.router.navigate(['/']);
-      });
+    this.http.put(BACKEND_URL + id, eventData).subscribe((response) => {
+      this.router.navigate(['/admin-panel']);
+    });
   }
+
   deleteEvent(eventId: string) {
     return this.http.delete(BACKEND_URL + eventId);
   }

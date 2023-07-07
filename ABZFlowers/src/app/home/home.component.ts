@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ElementRef } from '@angular/core';
 import { Product } from './products/product.model';
 import { ProductsService } from './products/products.service';
 import { Subscription } from 'rxjs';
@@ -12,12 +12,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
+  selectedImagePath: string | null = null;
+
   products: Product[] = [];
   isLoading = false;
   totalPosts = 0;
-  productsPerPage = 10;
+  productsPerPage = 8;
   currentPage = 1;
-  pageSizeOptions = [1, 2, 5, 10];
+  pageSizeOptions = [4, 8, 12];
   userIsAuthenticated = false;
   userId: string;
   private authStatusSub: Subscription;
@@ -27,7 +29,8 @@ export class HomeComponent {
   constructor(
     public productsService: ProductsService,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -69,6 +72,10 @@ export class HomeComponent {
   //   );
   // }
 
+  openImageModal(imagePath: string): void {
+    this.selectedImagePath = imagePath;
+  }
+
   onDelete(productId: string) {
     this.isLoading = true;
     this.productsService.deleteProduct(productId).subscribe(() => {
@@ -81,6 +88,17 @@ export class HomeComponent {
     this.currentPage = pageData.pageIndex + 1;
     this.productsPerPage = pageData.pageSize;
     this.productsService.getProducts(this.productsPerPage, this.currentPage);
+
+    // Scroll to the "Products" section with custom speed
+    const productsSection =
+      this.elementRef.nativeElement.querySelector('.display-5');
+    if (productsSection) {
+      productsSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
   }
 
   addToCart(product: Product) {

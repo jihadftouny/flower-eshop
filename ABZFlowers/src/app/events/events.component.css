@@ -6,3 +6,10 @@
 .font-lucidasans {
   font-family: "Lucida Sans", Arial, sans-serif;
 }
+
+::ng-deep .mat-mdc-paginator-outer-container {
+  background-color: #457132;
+}
+::ng-deep .mat-mdc-paginator {
+  background-color: #457132;
+}

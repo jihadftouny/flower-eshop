@@ -33,27 +33,29 @@ exports.updateEvent = (req, res, next) => {
   let imagePath = req.body.imagePath;
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/images/events/" + req.file.filename;
+    imagePath = url + "/images/" + req.file.filename;
   }
   const event = new Event({
     _id: req.body.id,
     imagePath: imagePath,
-    name: req.body.name
+    name: req.body.name,
+    creator: req.userData.userId
   })
+
   Event.updateOne({ _id: req.params.id, creator: req.userData.userId }, event).then(result => {
     console.log(result);
-    if (result.modifiedCount > 0){
+    if (result.modifiedCount > 0) {
       res.status(200).json({ message: "Update successful!" });
     }
     else {
-     res.status(401).json({ message: "You are not authorized!" });
+      res.status(401).json({ message: "You are not authorized!" });
     }
   })
-  .catch(error => {
-    res.status(500).json({
-      message: "Couldn't update event"
-    })
-  });
+    .catch(error => {
+      res.status(500).json({
+        message: "Couldn't update event"
+      })
+    });
 };
 
 exports.getEvents = (req, res, next) => {
@@ -105,17 +107,18 @@ exports.getEvent = (req, res, next) => {
 
 exports.deleteEvent = (req, res, next) => {
   Event.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
-    if (result.modifiedCount > 0){
-      res.status(200).json({ message: "Deletion successful!" });
-    }
-    else {
-      res.status(401).json({ message: "You are not authorized!" });
-    }
+    res.status(200).json({ message: "Deletion successful!" });
+    // if (result.modifiedCount > 0){
+    //   res.status(200).json({ message: "Deletion successful!" });
+    // }
+    // else {
+    //   res.status(401).json({ message: "You are not authorized!" });
+    // }
   })
-  .catch(error => {
-    res.status(500).json({
-      message: "Deleting event failed!"
-    })
-  });
+    .catch(error => {
+      res.status(500).json({
+        message: "Deleting event failed!"
+      })
+    });
 
 };

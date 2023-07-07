@@ -14,17 +14,6 @@
       >
     </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        type="text"
-        formControlName="index"
-        placeholder="Event Index"
-      />
-      <mat-error *ngIf="form.get('index').invalid"
-        >Please enter a event index.</mat-error
-      >
-    </mat-form-field>
 
     <div>
       <button mat-stroked-button type="button" (click)="filePicker.click()">

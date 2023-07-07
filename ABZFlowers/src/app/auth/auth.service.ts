@@ -125,17 +125,17 @@ export class AuthService {
     });
   }
 
-  createUser(email: string, password: string, fullName: string, phoneNumber: string) {
-    const authData: AuthData = { email: email, password: password, fullName: fullName, phoneNumber: phoneNumber };
-    this.http.post(BACKEND_URL + '/signup', authData).subscribe(
-      () => {
-        this.router.navigate(['/auth/login']);
-      },
-      (error) => {
-        this.authStatusListener.next(false);
-      }
-    );
-  }
+  // createUser(email: string, password: string, fullName: string, phoneNumber: string) {
+  //   const authData: AuthData = { email: email, password: password, fullName: fullName, phoneNumber: phoneNumber };
+  //   this.http.post(BACKEND_URL + '/signup', authData).subscribe(
+  //     () => {
+  //       this.router.navigate(['/auth/login']);
+  //     },
+  //     (error) => {
+  //       this.authStatusListener.next(false);
+  //     }
+  //   );
+  // }
 
   deleteUser(userId: string) {
     return this.http.delete(BACKEND_URL + userId);

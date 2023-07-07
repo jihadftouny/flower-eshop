@@ -1,10 +1,19 @@
 <div class="background bg-light">
-
   <div class="container">
     <div class="row px-5 pt-4 pb-2 text-center">
       <div class="display-5">Events Gallery</div>
     </div>
   </div>
+
+  <mat-paginator
+    class="my-5"
+    [length]="totalPosts"
+    [pageSize]="eventsPerPage"
+    [hidePageSize]="true"
+    [showFirstLastButtons]="true"
+    (page)="onChangedPage($event)"
+    *ngIf="events.length > 0"
+  ></mat-paginator>
 
   <div class="row px-5 pt-3">
     <!-- Backend Integration -->
@@ -17,13 +26,29 @@
           class="card-img-top rounded-0"
           [src]="event.imagePath"
           [alt]="event.name"
+          (click)="openImageModal(event.imagePath)"
+          data-bs-toggle="modal"
+          data-bs-target="#imageModal"
+          style="cursor: pointer"
         />
-        <div class="card-body text-center d-flex flex-column font-lucidasans fs-5">
-          {{event.name}}
+        <div
+          class="card-body text-center d-flex flex-column font-lucidasans fs-5"
+        >
+          {{ event.name }}
         </div>
       </div>
     </div>
   </div>
+  <mat-paginator
+    class="py-2"
+    [length]="totalPosts"
+    [pageSize]="eventsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    [hidePageSize]="false"
+    [showFirstLastButtons]="true"
+    (page)="onChangedPage($event)"
+    *ngIf="events.length > 0"
+  ></mat-paginator>
   <p
     class="info-text mat-body-1 text-center"
     *ngIf="events.length <= 0 && !isLoading"
@@ -31,4 +56,18 @@
     No events added yet!
   </p>
   <!-- End of Backend Integration -->
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="selectedImagePath" [alt]="'Image'" class="img-fluid" *ngIf="selectedImagePath" />
+      </div>
+    </div>
+  </div>
 </div>

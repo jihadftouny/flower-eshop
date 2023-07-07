@@ -19,41 +19,6 @@ export class ProductsService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // DEPRECATED
-  searchProducts(searchTerm: string) {
-    const queryParams = `?search=${searchTerm}`;
-    this.http
-      .get<{ message: string; products: any; maxProducts: number }>(
-        BACKEND_URL + 'search' + queryParams
-      )
-      .pipe(
-        map((productData) => {
-          return {
-            products: productData.products.map((product) => {
-              return {
-                id: product._id,
-                title: product.title,
-                content: product.content,
-                imagePath: product.imagePath,
-                quantity: product.quantity,
-                price: product.price,
-                currency: product.currency,
-                creator: product.creator,
-              };
-            }),
-            maxProducts: productData.maxProducts,
-          };
-        })
-      )
-      .subscribe((transformedProductData) => {
-        this.products = transformedProductData.products;
-        this.productsUpdated.next({
-          products: [...this.products],
-          productCount: transformedProductData.maxProducts,
-        });
-      });
-  }
-  // DEPRECATED
 
   getProducts(productsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${productsPerPage}&page=${currentPage}`; //this is a template expression
@@ -154,7 +119,6 @@ export class ProductsService {
       productData.append('quantity', quantity);
       productData.append('price', price);
       productData.append('currency', currency);
-      console.log('error1');
     } else {
       productData = {
         id: id,
@@ -169,7 +133,7 @@ export class ProductsService {
     }
     //redirection
     this.http.put(BACKEND_URL + id, productData).subscribe((response) => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/admin-panel']);
     });
   }
 

@@ -21,8 +21,10 @@ export class AdminComponent implements OnInit, OnDestroy {
   // ];
   searchTermProducts: string;
   searchTermUsers: string;
+  searchTermEvents: string;
   filteredProducts: Product[];
   filteredUsers: AuthData[];
+  filteredEvents: Eventt[];
   searched = false;
 
   users: AuthData[] = [];
@@ -136,6 +138,22 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
+  searchEvents(): void {
+    if (!this.searchTermEvents) {
+      // If search query is empty, show all events
+      this.filteredEvents = this.events;
+      this.searched = false;
+    } else {
+      // Filter events based on search query
+      this.searched = true;
+      this.filteredEvents = this.events.filter((event) =>
+        event.name
+          .toLowerCase()
+          .includes(this.searchTermEvents.toLowerCase())
+      );
+    }
+  }
+
   //called whenever the component is about to be destroyed
   ngOnDestroy() {
     this.userSub.unsubscribe();
@@ -156,11 +174,11 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.productsService.getProducts(this.productsPerPage, this.currentPage);
     });
   }
-
-  //deprecated
-  onSearch() {
-    // Call a method in the service to perform the search
-    this.productsService.searchProducts(this.searchTermProducts);
+  onDeleteEvent(eventId: string) {
+    this.isLoading = true;
+    this.eventsService.deleteEvent(eventId).subscribe(() => {
+      this.eventsService.getEvents(this.eventsPerPage, this.currentPage);
+    });
   }
 
   onChangedPage(pageData: PageEvent) {

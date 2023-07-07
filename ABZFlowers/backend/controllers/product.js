@@ -117,12 +117,13 @@ exports.getProduct = (req, res, next) => {
 
 exports.deleteProduct = (req, res, next) => {
   Product.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
-    if (result.modifiedCount > 0){
-      res.status(200).json({ message: "Deletion successful!" });
-    }
-    else {
-      res.status(401).json({ message: "You are not authorized!" });
-    }
+    res.status(200).json({ message: "Deletion successful!" });
+    // if (result.modifiedCount > 0){
+    //   res.status(200).json({ message: "Deletion successful!" });
+    // }
+    // else {
+    //   res.status(401).json({ message: "You are not authorized!" });
+    // }
   })
   .catch(error => {
     res.status(500).json({

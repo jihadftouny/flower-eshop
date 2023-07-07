@@ -30,6 +30,7 @@ import { AngularMaterialModule } from './angular-material.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './home/products/products.module';
 import { EventsModule } from './events/events.module';
+import { EventModalComponent } from './events/event-modal/event-modal.component';
 
 @NgModule({
   declarations: [

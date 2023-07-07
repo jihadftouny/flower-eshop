@@ -105,12 +105,12 @@
       class="form-control me-2"
       type="text"
       placeholder="Search"
-      [(ngModel)]="searchTermProducts"
-      (input)="searchProducts()"
+      [(ngModel)]="searchTermEvents"
+      (input)="searchEvents()"
       name="searchTerm"
       aria-label="Search"
     />
-    <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
+    <a routerLink="/create-event" class="btn btn-outline-info">Add</a>
     <button class="btn btn-outline-success" type="submit">Search</button>
   </form>
   <div class="table-responsive">
@@ -118,25 +118,19 @@
       <thead class="table">
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Title</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Price</th>
-          <th scope="col">Currency</th>
+          <th scope="col">Name</th>
           <th scope="col">Image</th>
           <th scope="col"></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody *ngIf="searched">
-        <tr *ngFor="let product of filteredProducts">
-          <td>{{ product.id }}</td>
-          <td class="text-wrap">{{ product.title }}</td>
-          <td>{{ product.quantity }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.currency }}</td>
+        <tr *ngFor="let event of filteredEvents">
+          <td>{{ event.id }}</td>
+          <td class="text-wrap">{{ event.name }}</td>
           <td>
             <div class="product-image">
-              <img [src]="product.imagePath" [alt]="product.title" />
+              <img [src]="event.imagePath" [alt]="event.name" />
             </div>
           </td>
           <td>
@@ -144,7 +138,7 @@
             <button
               type="button"
               class="btn btn-danger"
-              (click)="onDelete(product.id)"
+              (click)="onDeleteEvent(event.id)"
             >
               Delete
             </button>
@@ -154,22 +148,19 @@
             <a
               type="button"
               class="btn btn-warning"
-              [routerLink]="['/edit', product.id]"
+              [routerLink]="['/edit/event', event.id]"
               >Edit</a
             >
           </td>
         </tr>
       </tbody>
       <tbody *ngIf="!searched">
-        <tr *ngFor="let product of products">
-          <td>{{ product.id }}</td>
-          <td class="text-wrap">{{ product.title }}</td>
-          <td>{{ product.quantity }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.currency }}</td>
+        <tr *ngFor="let event of events">
+          <td>{{ event.id }}</td>
+          <td class="text-wrap">{{ event.name }}</td>
           <td>
             <div class="product-image">
-              <img [src]="product.imagePath" [alt]="product.title" />
+              <img [src]="event.imagePath" [alt]="event.name" />
             </div>
           </td>
           <td>
@@ -177,7 +168,7 @@
             <button
               type="button"
               class="btn btn-danger"
-              (click)="onDelete(product.id)"
+              (click)="onDeleteEvent(event.id)"
             >
               Delete
             </button>
@@ -187,7 +178,7 @@
             <a
               type="button"
               class="btn btn-warning"
-              [routerLink]="['/edit', product.id]"
+              [routerLink]="['/edit/event', event.id]"
               >Edit</a
             >
           </td>

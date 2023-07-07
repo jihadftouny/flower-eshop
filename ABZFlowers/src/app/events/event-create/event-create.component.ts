@@ -22,7 +22,7 @@ export class EventCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   imagePreview: string;
   private mode = 'create';
-  private eventtId: string;
+  private eventId: string;
   private authStatusSub: Subscription;
 
   constructor(
@@ -45,12 +45,12 @@ export class EventCreateComponent implements OnInit, OnDestroy {
       }),
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('eventtId')) {
+      if (paramMap.has('eventId')) {
         this.mode = 'edit';
-        this.eventtId = paramMap.get('eventtId');
+        this.eventId = paramMap.get('eventId');
         this.isLoading = true;
         this.eventtsService
-          .getEvent(this.eventtId)
+          .getEvent(this.eventId)
           .subscribe((eventtData) => {
             this.isLoading = false;
             this.eventt = {
@@ -66,7 +66,7 @@ export class EventCreateComponent implements OnInit, OnDestroy {
           });
       } else {
         this.mode = 'create';
-        this.eventtId = null;
+        this.eventId = null;
       }
     });
   }
@@ -95,11 +95,12 @@ export class EventCreateComponent implements OnInit, OnDestroy {
       );
     } else {
       this.eventtsService.updateEvent(
-        this.eventtId,
+        this.eventId,
         this.form.value.name,
         this.form.value.image,
       );
     }
+    console.log(this.mode)
     this.form.reset();
   }
   ngOnDestroy() {
