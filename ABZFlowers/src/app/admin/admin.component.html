@@ -13,16 +13,15 @@
       name="searchTerm"
       aria-label="Search"
     />
-    <a routerLink="/create-product" class="btn btn-outline-info">Add</a>
-    <button class="btn btn-outline-success" type="submit">Search</button>
+    <a routerLink="/create-product" class="btn btn-info px-5">Add</a>
   </form>
-  <div class="table-responsive">
+  <div class="table-responsive" style="height: 70vh; overflow-y: scroll;">
     <table class="table table-bordered table-striped">
       <thead class="table">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Title</th>
-          <th scope="col">Quantity</th>
+          <th scope="col">Category</th>
           <th scope="col">Price</th>
           <th scope="col">Currency</th>
           <th scope="col">Image</th>
@@ -34,7 +33,7 @@
         <tr *ngFor="let product of filteredProducts">
           <td>{{ product.id }}</td>
           <td class="text-wrap">{{ product.title }}</td>
-          <td>{{ product.quantity }}</td>
+          <td>{{ product.content }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.currency }}</td>
           <td>
@@ -67,7 +66,7 @@
         <tr *ngFor="let product of products">
           <td>{{ product.id }}</td>
           <td class="text-wrap">{{ product.title }}</td>
-          <td>{{ product.quantity }}</td>
+          <td>{{ product.content }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.currency }}</td>
           <td>
@@ -110,10 +109,9 @@
       name="searchTerm"
       aria-label="Search"
     />
-    <a routerLink="/create-event" class="btn btn-outline-info">Add</a>
-    <button class="btn btn-outline-success" type="submit">Search</button>
+    <a routerLink="/create-event" class="btn btn-info px-5">Add</a>
   </form>
-  <div class="table-responsive">
+  <div class="table-responsive" style="height: 70vh; overflow-y: scroll;">
     <table class="table table-bordered table-striped">
       <thead class="table">
         <tr>
@@ -224,69 +222,6 @@
           <td>{{ user.password }}</td>
           <td>{{ user.fullName }}</td>
           <td>{{ user.phoneNumber }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="display-5">Orders</div>
-  <form class="d-flex my-2">
-    <input
-      class="form-control me-2"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-    />
-    <button class="btn btn-outline-success" type="submit">Search</button>
-  </form>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead class="table">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">User</th>
-          <th scope="col">Products</th>
-          <th scope="col">Status</th>
-          <th>Confirm Order</th>
-          <th>Cancel Order</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>
-            <button type="button" class="btn btn-success">Confirm</button>
-          </td>
-          <td>
-            <button type="button" class="btn btn-danger">Cancel</button>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>
-            <button type="button" class="btn btn-success">Confirm</button>
-          </td>
-          <td>
-            <button type="button" class="btn btn-danger">Cancel</button>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td>
-            <button type="button" class="btn btn-success">Confirm</button>
-          </td>
-          <td>
-            <button type="button" class="btn btn-danger">Cancel</button>
-          </td>
         </tr>
       </tbody>
     </table>

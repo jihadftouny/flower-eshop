@@ -7,7 +7,7 @@
         matInput
         type="text"
         formControlName="title"
-        placeholder="Post Title"
+        placeholder="Title"
       />
       <mat-error *ngIf="form.get('title').invalid"
         >Please enter a post title.</mat-error
@@ -32,10 +32,11 @@
         matInput
         rows="4"
         formControlName="content"
-        placeholder="Post Content"
+        placeholder="Category"
+        [(ngModel)]="initialTextContent"
       ></textarea>
       <mat-error *ngIf="form.get('content').invalid"
-        >Please enter a post title.</mat-error
+        >Please enter a post category.</mat-error
       >
     </mat-form-field>
 
@@ -44,7 +45,8 @@
         matInput
         rows="4"
         formControlName="quantity"
-        placeholder="Post Quantity"
+        placeholder="Quantity"
+        [(ngModel)]="initialTextQuantity"
       ></textarea>
       <mat-error *ngIf="form.get('quantity').invalid"
         >Please enter a post quantity.</mat-error
@@ -56,7 +58,8 @@
         matInput
         rows="4"
         formControlName="price"
-        placeholder="Post Price"
+        placeholder="Price"
+        [(ngModel)]="initialTextPrice"
       ></textarea>
       <mat-error *ngIf="form.get('price').invalid"
         >Please enter a post price.</mat-error
@@ -68,7 +71,8 @@
         matInput
         rows="4"
         formControlName="currency"
-        placeholder="Post Currency"
+        placeholder="Currency"
+        [(ngModel)]="initialTextCurrency"
       ></textarea>
       <mat-error *ngIf="form.get('currency').invalid"
         >Please enter a post currency.</mat-error

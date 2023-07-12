@@ -49,6 +49,7 @@ app.use((req, res, next) => {
 app.use("/api/products", productsRoutes);
 app.use("/api/user", usersRoutes);
 app.use("/api/events", eventsRoutes);
+app.use("/api/orders", productsRoutes);
 
 //now we want to export this app to the node.js server in root folder
 

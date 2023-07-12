@@ -14,10 +14,13 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav fs-5">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home">SHOP</a>
+          <a class="nav-link" routerLink="/home">PRODUCTS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/events">GALLERY</a>
+          <a class="nav-link" routerLink="/arrangements">ARRANGEMENTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about-us">ABOUT US</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/contact-us">CONTACT US</a>
@@ -34,16 +37,16 @@
           >
         </li>
         <li *ngIf="!userIsAuthenticated" class="nav-item">
-          <a class="nav-link" routerLink="auth/login">SIGN IN</a>
+          <a class="nav-link" routerLink="auth/login">ADMIN LOGIN</a>
         </li>
         <li *ngIf="userIsAuthenticated" (click)="onLogout()" class="nav-item">
           <a class="nav-link" routerLink="auth/login">LOGOUT</a>
         </li>
       </ul>
 
-      <a href="/cart" class="btn btn-outline-light btn-sm ml-2">
+      <!-- <a href="/cart" class="btn btn-outline-light btn-sm ml-2">
         <i class="bi-cart" style="color: black"></i>
-      </a>
+      </a> -->
 
       <div class="ml-auto">
         <form class="form-inline my-2 my-lg-0">

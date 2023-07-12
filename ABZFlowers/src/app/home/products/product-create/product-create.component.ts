@@ -15,6 +15,12 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./product-create.component.css'],
 })
 export class ProductCreateComponent implements OnInit, OnDestroy {
+  initialText;
+  initialTextContent;
+  initialTextQuantity;
+  initialTextPrice;
+  initialTextCurrency;
+
   enteredTitle = '';
   enteredContent = '';
   product: Product;
@@ -32,9 +38,11 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe((authStatus) => {
-      this.isLoading = false;
-    });
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe((authStatus) => {
+        this.isLoading = false;
+      });
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)],
@@ -77,16 +85,24 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
             };
             this.form.setValue({
               title: this.product.title,
-              content: this.product.content,
               image: this.product.imagePath,
+              content: this.product.content,
               quantity: this.product.quantity,
               price: this.product.price,
               currency: this.product.currency,
             });
+            this.initialTextContent = this.product.content
+            this.initialTextQuantity = this.product.quantity;
+            this.initialTextPrice = this.product.price;
+            this.initialTextCurrency = this.product.currency;
           });
       } else {
         this.mode = 'create';
         this.productId = null;
+        this.initialTextQuantity = 'quantity n/a';
+        this.initialTextContent = 'category n/a';
+        this.initialTextPrice = 'price n/a';
+        this.initialTextCurrency = 'currency n/a';
       }
     });
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -8,6 +8,8 @@ import { Product } from './product.model';
 import { environment } from 'environments/environment';
 
 const BACKEND_URL = environment.apiUrl + '/products/';
+
+const BACKEND_ORDER_URL = environment.apiUrl; + '/orders/'
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
@@ -140,4 +142,9 @@ export class ProductsService {
   deleteProduct(productId: string) {
     return this.http.delete(BACKEND_URL + productId);
   }
+
+  createOrder(order: any): Observable<any> {
+    return this.http.post<any>(`${BACKEND_ORDER_URL}`, order);
+  }
+
 }

@@ -15,21 +15,22 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { EventCreateComponent } from './events/event-create/event-create.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
+  { path: 'arrangements', component: EventsComponent },
   { path: 'contact-us', component: ContactUsComponent },
-  { path: 'admin-panel', component: AdminComponent, canActivate: [AuthGuard]  },
+  { path: 'about-us', component: AboutUsComponent },
 
+  { path: 'admin-panel', component: AdminComponent, canActivate: [AuthGuard]  },
   { path: 'login', component: LoginComponent },
-  { path: 'cart', component: CartComponent },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'list-product ', component: ProductListComponent },
+
   { path: 'create-product', component: ProductCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/:productId', component: ProductCreateComponent, canActivate: [AuthGuard] },
 
-  { path: 'events', component: EventsComponent },
   { path: 'create-event', component: EventCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/event/:eventId', component: EventCreateComponent, canActivate: [AuthGuard] },
 

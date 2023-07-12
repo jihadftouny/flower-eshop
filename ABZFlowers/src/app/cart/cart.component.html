@@ -1,11 +1,11 @@
-<div class="mt-5" style="padding-top: 10px">
+<!-- <div class="mt-5" style="padding-top: 10px">
   <div class="container">
-    <div class="display-5 text-center mb-5">Shopping Cart</div>
+
     <table class="table">
       <thead>
         <tr>
-          <th style="background-color: #9f9e9e">Item Name</th>
-          <th style="background-color: #9f9e9e">Picture</th>
+          <th style="background-color: #457132; color: #B9D8E6;">Item Name</th>
+          <th style="background-color: #457132">Picture</th>
         </tr>
       </thead>
       <tbody>
@@ -19,46 +19,32 @@
               height="100"
             />
           </td>
-          <!-- Add more table cells for other properties -->
+
         </tr>
       </tbody>
     </table>
-    <div class="row justify-content-end">
-      <div class="col-auto">
-        <form (submit)="confirmOrder()">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Your WhatsApp Number "
-              name="phoneNumber"
-              required
-            />
-            <button type="submit" class="btn btn-success btn-confirm">
-              Confirm Order
-            </button>
-          </div>
-        </form>
-      </div>
-      <div class="col-auto">
-        <button
-          class="btn btn-danger btn-cancel mt-2 mt-sm-0"
-          (click)="deleteCart()"
-          routerLink="/create-product"
-        >
-          Empty Cart
+
+    <form [formGroup]="checkoutForm" (submit)="confirmOrder()">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Your WhatsApp Number"
+          formControlName="phoneNumber"
+          required
+        />
+        <button type="submit" class="btn btn-success btn-confirm">
+          Confirm Order
         </button>
       </div>
-    </div>
+    </form>
+    <button
+      class="btn btn-danger btn-cancel mt-2 mt-sm-0"
+      (click)="deleteCart()"
+      routerLink="/"
+    >
+      Empty Cart
+    </button>
   </div>
-
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.min.js"
-    integrity="sha512-KUksny6UObl6/RuA1RfoVu7BLu/KbIeV7qZ3qspYV7puuKrQ0D9XzIexuB6cEz6ABi9XxFXMBGebfbSkKCYs4w=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
 </div>
-
-<div class="mt-5" style="padding-bottom: 44px"></div>
+-->

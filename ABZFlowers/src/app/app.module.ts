@@ -31,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './home/products/products.module';
 import { EventsModule } from './events/events.module';
 import { EventModalComponent } from './events/event-modal/event-modal.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { EventModalComponent } from './events/event-modal/event-modal.component'
     ContactUsComponent,
     CartComponent,
     ErrorComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ import { EventModalComponent } from './events/event-modal/event-modal.component'
     AuthModule,
     EventsModule,
     MatSnackBarModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

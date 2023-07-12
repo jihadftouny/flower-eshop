@@ -95,7 +95,7 @@
   </div>
 
   <mat-paginator
-    class="mb-5 mt-3"
+    class="mb-2 mt-3"
     [length]="totalPosts"
     [pageSize]="productsPerPage"
     [hidePageSize]="true"
@@ -103,30 +103,46 @@
     (page)="onChangedPage($event)"
     *ngIf="products.length > 0"
   ></mat-paginator>
-
-  <div class="row px-5 pt-2">
-    <!-- Backend Integration -->
+  <div class="container-fluid">
+    <div class="row text-end font-roboto fs-4 d-flex flex-column pb-4">
+      <div class="d-flex justify-content-end align-items-center">
+        <div class="me-2">Filter by:</div>
+        <button type="button" class="btn btn-danger me-2 rounded-0">Show All</button>
+        <button type="button" class="btn btn-danger me-2 rounded-0">Bouquet</button>
+        <button type="button" class="btn btn-danger me-2 rounded-0">Box</button>
+        <button type="button" class="btn btn-danger rounded-0">Balloon</button>
+      </div>
+    </div>
     <div
-      class="col-xl-3 col-lg-6 col-md-6 col-sm-12 pb-5"
-      *ngFor="let product of products"
+      class="row text-center font-roboto fs-4 d-flex flex-column pb-4 px-5 font-lora"
     >
-      <div class="card shadow rounded-0 border-0 card-bg">
-        <img
-          class="card-img-top rounded-0"
-          [src]="product.imagePath"
-          [alt]="product.title"
-        />
-        <div class="card-body text-center d-flex flex-column">
-          <a
-            (click)="addToCart(product)"
-            class="btn btn-addcart text-white fw-bolder font-lucidasans"
+      Get in touch on WhatsApp to create personalized floral wonders that will
+      brighten any moment.
+    </div>
+    <div class="row px-5 pt-2">
+      <!-- Backend Integration -->
+      <div
+        class="col-xl-3 col-lg-6 col-md-6 col-sm-12 pb-5"
+        *ngFor="let product of products"
+      >
+        <div class="card shadow rounded-0 border-0 card-bg h-100">
+          <img
+            class="card-img-top rounded-0"
+            [src]="product.imagePath"
+            [alt]="product.title"
+          />
+          <div
+            class="card-body d-flex align-items-center justify-content-center"
           >
-            ADD TO CART
-          </a>
+            <p class="card-text text-center font-lora fs-4 m-0">
+              {{ product.title }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <mat-paginator
     class="py-2"
     [length]="totalPosts"
@@ -146,17 +162,32 @@
   <!-- End of Backend Integration -->
 </div>
 
-
 <!-- Image Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="imageModal"
+  tabindex="-1"
+  aria-labelledby="imageModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="imageModalLabel">Image Modal</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        <img [src]="selectedImagePath" [alt]="'Image'" class="img-fluid" *ngIf="selectedImagePath" />
+        <img
+          [src]="selectedImagePath"
+          [alt]="'Image'"
+          class="img-fluid"
+          *ngIf="selectedImagePath"
+        />
       </div>
     </div>
   </div>

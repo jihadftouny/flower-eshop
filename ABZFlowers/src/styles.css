@@ -5,4 +5,16 @@ html, body { height: 100%; }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.font-roboto{
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-lora{
+  font-family: 'Lora', serif;
+}
+
+.font-lucidasans {
+  font-family: "Lucida Sans", Arial, sans-serif;
+  }
+
 
